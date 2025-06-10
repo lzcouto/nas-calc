@@ -10,7 +10,8 @@
         "lint": "ng lint --fix",
         "e2e": "ng e2e",
         "predeploy": "ng build --output-hashing all --output-path ../tong-calc-ro-host/docs --base-href ../tong-calc-ro-host/",
-        "deploy": "cp ../tong-calc-ro-host/docs/index.html ../tong-calc-ro-host/docs/404.html"
+        "deploy": "cp ../tong-calc-ro-host/docs/index.html ../tong-calc-ro-host/docs/404.html",
+        "postinstall": "node -e \"const fs = require('fs'); const path = 'src/environments/environment.local.ts'; if (!fs.existsSync(path)) { const content = \\\"import { EnvironmentModel } from './environment.model';\\\\n\\\\nexport const environment: EnvironmentModel = {\\\\n  production: false,\\\\n  divinePrideAPIKey: 'YOUR_LOCAL_API_KEY_HERE',\\\\n  divinePrideAPIHost: 'https://divine-pride.net/api'\\\\n};\\\"; fs.writeFileSync(path, content); }\""
     },
     "private": true,
     "dependencies": {
