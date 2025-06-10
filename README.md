@@ -320,7 +320,7 @@ This project is open source. Please check the repository for license details.
 
 ## 🔗 Links
 
-- **Live Demo**: https://turugrura.github.io/tong-calc-ro-host/#/
+- **Live Demo**: https://lzcouto.github.io/nas-calc-host/#/
 - **Original Repository**: Check the git remote for original source
 
 ---

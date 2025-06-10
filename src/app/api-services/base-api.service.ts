@@ -5,7 +5,8 @@ import { environment } from 'src/environments/environment';
 import { LoginResponse } from './models';
 import { Unauthorized } from '../app-errors';
 
-const BASE_URL = environment.roBackendUrl;
+// const BASE_URL = environment.roBackendUrl; // Removed - authentication functionality disabled
+const BASE_URL = ''; // Placeholder - API services disabled
 const REFRESH_TOKEN_KEY = 'refreshToken';
 
 export abstract class BaseAPIService {
