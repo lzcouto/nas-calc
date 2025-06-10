@@ -1,0 +1,209 @@
+# Ragnarok Online Damage Calculator - Memory Bank
+
+## Project Overview
+- **Type**: TypeScript/Angular damage calculator for Ragnarok Online MMORPG
+- **Framework**: Angular 16 with PrimeNG UI components
+- **Architecture**: Complex multi-layered calculation engine with job class system
+- **Scale**: 65+ job classes, 1,500+ line calculation engines, 20MB+ of game data
+
+## Core Architecture
+
+### Main Calculation Flow
+1. **Character Setup** → Job class selection, stat distribution, equipment
+2. **Equipment Processing** → Item bonuses, cards, enchants, refining effects
+3. **Skill Processing** → Active/passive skills, buffs, mastery bonuses
+4. **Damage Calculation** → Physical/magical damage with elemental/size/race modifiers
+5. **Result Display** → DPS, hit rates, critical chances, damage ranges
+
+### Key Files & Components
+
+#### Calculation Engine (`src/app/layout/pages/ro-calculator/`)
+- **`calculator.ts`** (1,547 lines) - Master orchestrator
+  - Equipment status calculation
+  - Item bonus processing
+  - Skill effect application
+  - Final damage coordination
+  
+- **`damage-calculator.ts`** (1,447 lines) - Core damage logic
+  - Physical/magical damage formulas
+  - Elemental interaction calculations
+  - Size penalty applications
+  - Critical hit processing
+  
+- **`base-state-calculator.ts`** - Character base stats
+- **`hp-sp-calculator.ts`** - HP/SP calculations
+
+#### Job System (`src/app/jobs/`)
+- **`_character-base.abstract.ts`** (622 lines) - Abstract foundation
+  - Skill system interfaces (AtkSkillModel, ActiveSkillModel, PassiveSkillModel)
+  - ASPD calculation framework
+  - Job bonus systems
+  - Mastery attack calculations
+
+- **Individual Job Classes** (65+ files)
+  - Each extends CharacterBase
+  - Unique skill sets and bonuses
+  - Job-specific damage calculations
+  - Class mastery implementations
+
+#### Game Data (`src/app/constants/`)
+- **`skill-name.ts`** (667 lines) - Complete skill database
+- **`item-type.enum.ts`** (230 lines) - Equipment categorization
+- **`element-mapper.ts`** - Elemental damage tables
+- **`size-penalty-mapper.ts`** - Monster size modifiers
+- **`weapon-type-mapper.ts`** - Weapon classifications
+
+#### Data Models (`src/app/models/`)
+- **Character Models**: MainModel, StatusSummary, InfoForClass
+- **Equipment Models**: EquipmentSummaryModel, ItemModel
+- **Damage Models**: DamageSummaryModel, BasicDamageSummaryModel
+- **Monster Models**: MonsterModel
+
+### Data Processing
+
+#### Equipment System
+- **Slots**: Weapon, Left Weapon, Armor, Shield, Garment, Boots, Accessories, Head Gears
+- **Modifiers**: Refining levels (+0 to +20), Cards (4 slots), Enchants (3 levels)
+- **Shadow Equipment**: Complete shadow gear system with separate calculations
+- **Costume Equipment**: Costume pieces with enchantment support
+
+#### Skill System Architecture
+```typescript
+interface AtkSkillModel {
+  formula: (input: AtkSkillFormulaInput) => number;
+  canCri?: boolean;
+  isMatk?: boolean;
+  element?: ElementType;
+  hit?: number;
+  maxStack?: number;
+  // ... extensive skill properties
+}
+```
+
+#### Damage Calculation Pipeline
+1. **Base Damage** = Status ATK + Equipment ATK + Mastery ATK
+2. **Skill Damage** = Base Damage × Skill Formula
+3. **Elemental Modifier** = Damage × Element Table[attacker][defender]
+4. **Size Modifier** = Damage × Size Penalty Table[weapon][monster]
+5. **Final Damage** = (Modified Damage - DEF) × Final Multipliers
+
+### Complex Systems
+
+#### Multi-Element Support
+- 10 elements: Neutral, Water, Earth, Fire, Wind, Poison, Holy, Dark, Ghost, Undead
+- Dynamic property changing (Elemental Converter, Ammo)
+- Element vs Element damage tables
+
+#### Advanced Mechanics
+- **Critical Hits**: Base critical + equipment bonuses + skill modifiers
+- **ASPD Calculations**: Job-specific ASPD tables with weapon type modifiers
+- **Combo Systems**: Equipment set bonuses and skill combinations
+- **Buff Stacking**: Multiple buff effects with proper stacking rules
+
+#### Monster Interaction
+- **Race Types**: Demi-Human, Brute, Plant, Insect, Fish, Demon, Angel, Dragon, Undead
+- **Size Categories**: Small, Medium, Large with weapon-specific penalties
+- **Monster Stats**: DEF, MDEF, RES, MRES with calculation impacts
+
+### UI Components (`src/app/layout/`)
+
+#### Main Calculator Interface
+- **`ro-calculator.component.ts`** (2,682 lines) - Main UI controller
+- **Equipment Sections**: Organized equipment input panels
+- **Status Display**: Real-time stat updates
+- **Damage Output**: Comprehensive damage breakdown
+- **Monster Selection**: Target monster database integration
+
+#### Supporting Components
+- **Item Search**: Equipment database search and filtering
+- **Preset System**: Build save/load functionality
+- **Battle Summary**: Damage vs monster calculations
+- **Elemental Tables**: Element interaction visualization
+
+### Data Files (`src/assets/demo/data/`)
+- **`item.json`** (8.7MB) - Complete item database with stats and bonuses
+- **`monster.json`** (299KB) - Monster database with stats and properties
+- **`hp_sp_table.json`** (286KB) - Character HP/SP progression tables
+- **`x.json`** (10MB) - Extended game data and calculations
+
+### Development Patterns
+
+#### TypeScript Usage
+- Extensive use of interfaces and type safety
+- Generic types for equipment and skill systems
+- Enum-based constants for game data
+- Abstract classes for job inheritance
+
+#### Angular Architecture
+- Module-based organization
+- Service injection for data management
+- Reactive forms for character input
+- PrimeNG for consistent UI components
+
+#### Calculation Optimization
+- Caching mechanisms for repeated calculations
+- Efficient data structures (Maps, Sets)
+- Modular calculation pipeline
+- Memory-conscious large data handling
+
+### Testing & Quality
+
+#### Code Quality
+- ESLint configuration for consistent code style
+- TypeScript strict mode enabled
+- Comprehensive interfaces for type safety
+- Modular architecture for maintainability
+
+#### Performance Considerations
+- Large JSON file handling (20MB+ total data)
+- Real-time calculation updates
+- Memory management for character instances
+- Efficient DOM updates in Angular
+
+### Deployment
+
+#### Build Process
+- Angular production build optimization
+- GitHub Pages deployment configuration
+- Asset optimization and compression
+- Hash-based routing for SPA compatibility
+
+#### Environment Configuration
+- Development/production environment settings
+- API service configuration
+- Build-time constants and optimizations
+
+### Key Algorithms
+
+#### Damage Formula Core
+```typescript
+// Physical damage base calculation
+const totalAtk = statusAtk + equipAtk + masteryAtk;
+const skillDamage = totalAtk * skillFormula(skillLevel);
+const elementalDamage = skillDamage * elementTable[attackElement][defenseElement];
+const finalDamage = (elementalDamage - defense) * finalMultipliers;
+```
+
+#### ASPD Calculation
+```typescript
+// Attack speed calculation per job class
+const baseAspd = AspdTable[jobClass][weaponType];
+const totalAspd = baseAspd + (totalAgi * agiBonus) + (totalDex * dexBonus) + equipmentAspd;
+const hitsPerSecond = totalAspd / 50; // RO ASPD formula
+```
+
+### Future Development Notes
+
+#### Extensibility Points
+1. **New Job Classes**: Extend CharacterBase abstract class
+2. **Additional Skills**: Add to _atkSkillList arrays with formula functions
+3. **Equipment Types**: Extend ItemTypeEnum and related mappers
+4. **Calculation Modifiers**: Add to damage calculation pipeline
+
+#### Maintenance Areas
+1. **Game Data Updates**: Item/monster database synchronization
+2. **Formula Accuracy**: Damage calculation formula verification
+3. **Performance Optimization**: Large data handling improvements
+4. **UI/UX Enhancement**: Calculator interface improvements
+
+This memory bank serves as a comprehensive guide for understanding and working with this complex Ragnarok Online damage calculator codebase. 
