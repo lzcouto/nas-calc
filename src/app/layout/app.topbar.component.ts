@@ -194,12 +194,28 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
   updates: { v: string; date: string; logs: string[]; }[] = [
     {
-      v: '0.0.1-BETA',
+      v: '0.1.2-BETA',
+      date: new Date().toLocaleDateString('en-US'),
+      logs: [
+        "Fixed topbar right-side positioning by moving Calculator, Items, and Settings buttons to layout-topbar-menu container",
+      ],
+    },
+    {
+      v: '0.1.1-BETA',
+      date: new Date().toLocaleDateString('en-US'),
+      logs: [
+        "Fixed topbar right-side elements positioning to ensure they align all the way to the right edge",
+      ],
+    },
+    {
+      v: '0.1.0-BETA',
       date: new Date().toLocaleDateString('en-US'),
       logs: [
         "Initial beta release",
-        "Removed support functionality",
+        "Removed support functionality", 
         "Reset version to 0.0.1-BETA",
+        "Reorganized topbar layout: Version/Bell/References on left, Calculator/Items/Settings on right",
+        "Updated footer attribution to 'NITROBLISSERINO ATTACK SQUAD @ ROLA' with Tong Calc credit",
       ],
     },
   ];

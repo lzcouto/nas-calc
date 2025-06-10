@@ -17,11 +17,17 @@ You are working on the Ragnarok Online Damage Calculator project. Before impleme
 - **Impact**: How does this change affect existing functionality?
 - **Dependencies**: Are there related features that need consideration?
 
-### Step 3: Implement Changes
+### Step 3: Implement Changes & User Confirmation
 - **Code Changes**: Make the requested modifications
 - **Testing**: Verify changes work correctly (`npm run build` to check compilation)
 - **Cleanup**: Remove any orphaned code, unused imports, or assets
 - **Verification**: Ensure no linter errors or compilation issues
+- **🔄 USER CONFIRMATION REQUIRED**: Present changes to user and request explicit confirmation
+  - Clearly describe what was implemented
+  - Ask user to test the functionality
+  - Wait for explicit "OK" or approval before proceeding
+  - If not satisfactory, iterate and fix issues before continuing
+- **⏸️ WORKFLOW PAUSE**: Do not proceed to documentation steps until user confirms changes work as expected
 
 ### Step 4: Update Memory Bank
 - **Document Changes**: Add a "Recent Changes" section to `.cursor/.memorybank`
@@ -29,7 +35,23 @@ You are working on the Ragnarok Online Damage Calculator project. Before impleme
 - **Version Updates**: Note any version changes or significant modifications
 - **Architecture Notes**: Update if architectural patterns change
 
-### Step 5: Create Feature Documentation
+### Step 5: Version Bump (Semantic Versioning for Websites)
+- **Check Current Version**: Look at the latest version in `CHANGELOG.md`
+- **Determine Scope**: Assess the change impact using website-adapted semantic versioning:
+  - **MAJOR (X.0.0)**: Complete UI/UX redesigns, breaking calculation changes, major architecture changes, removal of core features
+  - **MINOR (0.X.0)**: New features, significant UI improvements, new job classes/calculations, enhanced functionality
+  - **PATCH (0.0.X)**: Bug fixes, cosmetic changes, small UI adjustments, data updates, documentation updates
+- **Update Version**: Increment appropriate version number in both changelog locations
+- **Beta/Pre-release**: Maintain `-BETA` suffix during active development phase
+
+### Step 6: Update Changelog (Sync Bell Dialog & CHANGELOG.md)
+- **Bell Dialog**: Add changelog entry to `updates` array in `src/app/layout/app.topbar.component.ts`
+- **CHANGELOG.md**: Add matching entry to root `CHANGELOG.md` file with new version number
+- **Sync Requirement**: Ensure both changelog sources contain identical information and version numbers
+- **Format**: Use consistent bullet points and descriptions across both locations
+- **User Communication**: Bell dialog provides immediate user notifications of changes
+
+### Step 7: Create Feature Documentation
 - **Create**: New `.md` file in `/features` folder with descriptive name
 - **Include**: 
   - Overview of changes made
@@ -41,7 +63,7 @@ You are working on the Ragnarok Online Damage Calculator project. Before impleme
   - Technical learnings from implementation
 - **Format**: Follow existing feature documentation style
 
-### Step 6: Update README (If Necessary)
+### Step 8: Update README (If Necessary)
 - **Evaluate**: Does the change affect installation, usage, or project description?
 - **Update**: Modify `README.md` if the feature impacts:
   - Installation instructions
@@ -114,6 +136,9 @@ Before completing any feature work, verify:
 - [ ] Code compiles successfully (`npm run build`)
 - [ ] No linter errors introduced
 - [ ] Memory bank updated with recent changes
+- [ ] Version bumped according to semantic versioning rules (check scope: MAJOR/MINOR/PATCH)
+- [ ] Changelog updated in both locations (topbar component and CHANGELOG.md) with new version
+- [ ] Bell dialog and CHANGELOG.md entries are synchronized with matching version numbers
 - [ ] Feature documentation created in `/features` folder
 - [ ] Documentation follows established format
 - [ ] All files affected are documented
@@ -134,6 +159,45 @@ npm run build
 # File operations
 # Use read_file, edit_file, search_replace as needed
 ```
+
+## Semantic Versioning Rules for RO Calculator
+
+### Website-Adapted Versioning (Based on Semantic Versioning 2.0.0)
+
+Given a version number **MAJOR.MINOR.PATCH**, increment the:
+
+#### **MAJOR version (X.0.0)** when you make:
+- **Complete UI/UX Redesigns**: Fundamental changes to user workflows or interface paradigms
+- **Breaking Calculation Changes**: Modified damage formulas or calculation methods that affect existing results
+- **Major Architecture Changes**: Changes that affect user data compatibility or saved presets
+- **Core Feature Removal**: Removing major functionality that users depend on (job classes, calculation types)
+- **API Breaking Changes**: Changes to data structures or interfaces that break compatibility
+
+#### **MINOR version (0.X.0)** when you add:
+- **New Major Features**: New job classes, calculation types, or significant functionality
+- **Significant UI Improvements**: Major layout reorganizations, new UI sections, enhanced workflows
+- **New Calculation Capabilities**: Additional damage types, monster interactions, or skill systems
+- **Enhanced User Experience**: Features that improve usability without breaking existing workflows
+- **Backend Improvements**: New capabilities or performance enhancements that add functionality
+
+#### **PATCH version (0.0.X)** when you make:
+- **Bug Fixes**: Corrections to existing functionality without adding new features
+- **Cosmetic Changes**: Small UI adjustments, color schemes, positioning fixes
+- **Data Updates**: Adding new items, monsters, skills, or updating existing game data
+- **Performance Improvements**: Optimizations that don't change functionality
+- **Documentation Updates**: README, feature docs, or inline documentation changes
+- **Code Cleanup**: Refactoring, linting fixes, or code organization improvements
+
+#### **Pre-release Labels**:
+- **-BETA**: Active development phase with potential breaking changes
+- **-RC**: Release candidate, feature-complete but needs testing
+- **-ALPHA**: Early development with incomplete features
+
+### Version Bump Examples:
+- `0.0.1-BETA` → `0.1.0-BETA`: Topbar reorganization (MINOR - significant UI improvement)
+- `0.1.0-BETA` → `0.1.1-BETA`: Fixed button positioning (PATCH - cosmetic fix)
+- `0.1.1-BETA` → `1.0.0`: Complete calculator redesign (MAJOR - fundamental workflow change)
+- `1.0.0` → `1.1.0`: Added new job class support (MINOR - new functionality)
 
 ## Project-Specific Notes
 

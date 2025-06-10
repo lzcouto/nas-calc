@@ -10,7 +10,31 @@
 - **Version**: 0.0.1-BETA (reset from previous versions)
 
 ## Recent Changes (Latest Update)
-- **UI Reorganization**: Moved item search functionality and settings cogwheel to the topbar
+- **Topbar Right-Side Positioning Fix (v0.1.2-BETA)**: Resolved positioning issue by utilizing layout-topbar-menu container
+  - **Issue**: Calculator, Items, and Settings buttons were appearing in center despite flexbox attempts
+  - **Root Cause**: Custom flexbox container was conflicting with existing `layout-topbar-menu` CSS positioning
+  - **Solution**: Moved Calculator, Items, and Settings buttons into the purpose-built `layout-topbar-menu` div
+  - **Result**: Right-side elements now properly align all the way to the right edge using existing layout system
+  - **Technical**: Leveraged existing CSS instead of fighting it, simplified main container structure
+- **Topbar Layout Reorganization (v0.1.0-BETA)**: Restructured topbar layout for better organization
+  - **Left side**: Version, Bell icon (changelog), References button
+  - **Right side**: Calculator navigation, Items search button, Settings cogwheel
+  - Enhanced visual separation and improved user experience flow
+  - Calculator navigation moved to the right side for better prominence
+- **Footer Redesign**: Complete footer makeover
+  - Removed PrimeNG logo image
+  - Changed attribution to "by NITROBLISSERINO ATTACK SQUAD @ ROLA"
+  - Added smaller subtitle crediting original work: "A fork of Tong Calc" (with hyperlink)
+  - Implemented proper link styling with target="_blank" and security attributes
+- **Changelog Synchronization**: Enhanced workflow with dual changelog system
+  - **Bell Dialog**: Updated changelog in topbar component with recent changes
+  - **CHANGELOG.md**: Synchronized entries to match bell dialog notifications
+  - Both changelog sources now contain identical information for consistency
+- **Versioning System**: Implemented semantic versioning for website development
+  - **Current Version**: 0.1.2-BETA (PATCH fix for right-side element positioning using layout-topbar-menu)
+  - **Website-Adapted Rules**: MAJOR for UI redesigns/breaking changes, MINOR for new features/significant improvements, PATCH for fixes/cosmetic changes
+  - **Automated Workflow**: Version bumping integrated into feature development process
+- **Previous UI Reorganization**: Moved item search functionality and settings cogwheel to the topbar
   - Item search button now appears in the topbar with "Items" label and search icon
   - Settings cogwheel now appears in the topbar (far right) for scale and color configuration
   - Removed fixed-position buttons from their original locations
@@ -21,7 +45,6 @@
   - Removed support dialog with QR code and donation information
   - Removed `showDialog()` method from topbar component
   - Cleaned up version history to only show current beta version
-- **Simplified Header**: Header now contains core functionality plus new item search and settings access
 
 ## Core Architecture
 

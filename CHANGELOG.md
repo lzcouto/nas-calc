@@ -1,31 +1,17 @@
 # Changelog
 
-## 1.0.4
+## 0.1.2-BETA
 
-- Added Ranger, SR & Sorcerer skill to get bonus
-- Added items
-- Support 4th slot garment costume
+- Fixed topbar right-side positioning by moving Calculator, Items, and Settings buttons to layout-topbar-menu container
 
-## 1.0.3
+## 0.1.1-BETA
 
-- Fixed weapon cannot comparing
-- Added items & monsters
+- Fixed topbar right-side elements positioning to ensure they align all the way to the right edge
 
-## 1.0.2
+## 0.1.0-BETA
 
-- Fixed EDP calculation
-- Fixed Rolling Cutter to Melee damage
-
-## 1.0.1
-
-- Fixed item bonus
-- Fixed Shadow monster calculation
-- Update Racing cap & Enchants
-
-## 1.0.0
-
-- Support RG, Arch Bishop, Ranger, Guillotine Cross, SC, Warlock, Sorcerer, Mechanic, SR, Rebellion, Doram
-- Support preset saving.
-- Support item comparing.
-- Strict mode support added.
-- Eslint applied.
+- Initial beta release
+- Removed support functionality
+- Reset version to 0.0.1-BETA
+- Reorganized topbar layout: Version/Bell/References on left, Calculator/Items/Settings on right
+- Updated footer attribution to 'NITROBLISSERINO ATTACK SQUAD @ ROLA' with Tong Calc credit
