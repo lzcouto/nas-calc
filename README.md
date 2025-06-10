@@ -1,6 +1,6 @@
 # Ragnarok Online Damage Calculator
 
-A sophisticated TypeScript/Angular-based damage calculator for Ragnarok Online, featuring comprehensive job class systems, equipment simulation, and advanced damage calculations.
+A sophisticated TypeScript/Angular-based damage calculator for Ragnarok Online, featuring comprehensive job class systems, equipment simulation, and advanced damage calculations with Divine Pride API integration.
 
 ## 🎯 Overview
 
@@ -10,6 +10,7 @@ This project is a comprehensive damage calculator for the MMORPG Ragnarok Online
 - **Complex Damage Formulas** - Accurate damage calculations including elemental, size, and race modifiers
 - **Equipment System** - Full equipment simulation with cards, enchants, and refining
 - **Monster Database** - Extensive monster data for damage testing
+- **Divine Pride API Integration** - Real-time game data from Divine Pride database
 - **Real-time Calculations** - Dynamic damage updates based on character changes
 
 ## 🚀 Quick Start
@@ -19,6 +20,7 @@ This project is a comprehensive damage calculator for the MMORPG Ragnarok Online
 - **Node.js** (v16 or higher)
 - **npm** (v8 or higher)
 - **Angular CLI** (v16 or higher)
+- **Divine Pride API Key** (optional for enhanced features)
 
 ### Installation
 
@@ -32,37 +34,54 @@ This project is a comprehensive damage calculator for the MMORPG Ragnarok Online
    ```bash
    npm install
    ```
+   This will automatically create a local environment file (`src/environments/environment.local.ts`) with placeholder values.
 
-3. **Install Angular CLI globally** (if not already installed)
+3. **Configure API Key** (Optional)
+   Edit `src/environments/environment.local.ts` and replace the placeholder with your Divine Pride API key:
+   ```typescript
+   export const environment: EnvironmentModel = {
+     production: false,
+     divinePrideAPIKey: 'YOUR_ACTUAL_API_KEY_HERE',
+     divinePrideAPIHost: 'https://divine-pride.net/api'
+   };
+   ```
+
+4. **Install Angular CLI globally** (if not already installed)
    ```bash
    npm install -g @angular/cli@16
    ```
 
 ### Running the Application
 
-1. **Development Server**
+1. **Development Server** (Standard)
    ```bash
    npm start
    ```
    The application will be available at `http://localhost:4200`
 
-2. **Alternative Development Command**
+2. **Development Server with Local Environment**
+   ```bash
+   ng serve --configuration=local --host 0.0.0.0 --hmr --port 4200
+   ```
+   This uses your local API key configuration.
+
+3. **Alternative Development Command**
    ```bash
    npm run start2
    ```
    Standard Angular serve without host binding
 
-3. **Production Build**
+4. **Production Build**
    ```bash
    npm run build
    ```
 
-4. **Linting**
+5. **Linting**
    ```bash
    npm run lint
    ```
 
-5. **Testing**
+6. **Testing**
    ```bash
    npm test
    ```
@@ -80,6 +99,12 @@ src/app/
 ├── layout/             # UI components and pages
 ├── api-services/       # Data services and API handlers
 └── utils/              # Utility functions and helpers
+
+src/environments/
+├── environment.ts       # Development environment (placeholders)
+├── environment.prod.ts  # Production environment (placeholders)
+├── environment.local.ts # Local environment (your API keys) - Git ignored
+└── environment.model.ts # Environment interface definition
 ```
 
 ### Key Components
@@ -216,13 +241,56 @@ npm run deploy       # Deploy to GitHub Pages
 ## 🛠️ Configuration
 
 ### Environment Settings
-- **Development**: `src/environments/environment.ts`
-- **Production**: `src/environments/environment.prod.ts`
+
+The application uses a streamlined environment configuration system:
+
+#### Environment Files
+- **`environment.ts`** - Development environment with placeholders
+- **`environment.prod.ts`** - Production environment with placeholders  
+- **`environment.local.ts`** - Local environment (your API keys) - Git ignored
+- **`environment.model.ts`** - TypeScript interface for environment structure
+
+#### Environment Structure
+```typescript
+export interface EnvironmentModel {
+  production: boolean;              // Environment mode
+  divinePrideAPIKey: string;       // Divine Pride API key
+  divinePrideAPIHost: string;      // Divine Pride API host URL
+}
+```
+
+#### API Configuration
+- **Divine Pride API**: Integrated for real-time game data
+- **API Host**: `https://divine-pride.net/api`
+- **Local Development**: Use `environment.local.ts` for your API keys
+- **Security**: API keys are never committed to version control
+
+#### Development Configurations
+- **Standard**: Uses `environment.ts` (placeholders)
+- **Local**: Uses `environment.local.ts` (your API keys)
+- **Production**: Uses `environment.prod.ts` (configured per deployment)
+
+#### Running with Configurations
+```bash
+# Standard development (no API integration)
+npm start
+
+# Local development (with your API keys)
+ng serve --configuration=local
+
+# Production build
+ng build --configuration=production
+```
 
 ### Angular Configuration
-- **`angular.json`** - Angular workspace configuration
+- **`angular.json`** - Angular workspace configuration with local environment support
 - **`tsconfig.json`** - TypeScript configuration
 - **`.eslintrc.json`** - ESLint rules for code quality
+
+### Security Notes
+- **API Keys**: Never commit real API keys to the repository
+- **Local Environment**: `environment.local.ts` is automatically ignored by Git
+- **Placeholders**: Template files contain placeholder values for security
 
 ## 📋 Dependencies
 
