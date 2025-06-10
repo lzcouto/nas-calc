@@ -65,22 +65,9 @@
         </button> -->
 
     <div class="flex align-items-center">
-      <button class="font-bold p-button-primary p-button-rounded p-button-raised" icon="pi pi-heart" pButton pRipple label="Support" (click)="showDialog()"></button>
     </div>
   </div>
-  <p-dialog header="Support" [draggable]="false" [resizable]="false" [modal]="true" [(visible)]="visible" [style]="{ 'min-width': '300px' }">
-    <div class="card flex flex-column align-items-center gap-2 flex-wrap">
-      <div>
-        <img src="assets/demo/images/others/qr.jpg" alt="QR" style="width: 300px" />
-      </div>
-      <div class="font-bold" style="background-color: var(--surface-0); color: var(--green-400)">Thank you very much!</div>
-      <div>
-        <a href="https://web.facebook.com/zfehu.oivgwhy" target="_blank" rel="noreferrer noopener">
-          <p-chip label="Tong Aphisit" icon="pi pi-facebook"></p-chip>
-        </a>
-      </div>
-    </div>
-  </p-dialog>
+
 
   <p-dialog header="Additional Information" [draggable]="false" [resizable]="false" [modal]="true" [(visible)]="visibleInfo" [style]="{ width: '50vw' }">
     <div class="card flex flex-column align-items-center gap-2 flex-wrap">

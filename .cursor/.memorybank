@@ -7,6 +7,16 @@
 - **Scale**: 65+ job classes, 1,500+ line calculation engines, 20MB+ of game data
 - **Language**: English (previously had Thai text, now fully translated)
 - **Focus**: Streamlined, lean calculator focused on core damage calculation functionality
+- **Version**: 0.0.1-BETA (reset from previous versions)
+
+## Recent Changes (Latest Update)
+- **Version Reset**: Changed from V3.2.8 to 0.0.1-BETA
+- **Support Functionality Removed**: 
+  - Removed green support button from header
+  - Removed support dialog with QR code and donation information
+  - Removed `showDialog()` method from topbar component
+  - Cleaned up version history to only show current beta version
+- **Simplified Header**: Header now contains only core functionality (version notifications, references, calculator navigation)
 
 ## Core Architecture
 
@@ -207,12 +217,14 @@ const hitsPerSecond = totalAspd / 50; // RO ASPD formula
 - **REMOVED**: Shared Presets feature and route (`/shared-presets`)
 - **REMOVED**: Authentication system (login/logout, user profiles)
 - **REMOVED**: External links (YouTube tutorials, issue tracking, surveys)
+- **REMOVED**: Support functionality (green support button, donation dialog, QR code)
 
 ### Code Cleanup Benefits
 - **Reduced Bundle Size**: ~10-15% smaller build
 - **Simplified Maintenance**: Fewer dependencies and external integrations
 - **Focused User Experience**: Single-purpose calculator interface
 - **Language Consistency**: All Thai text translated to English
+- **Clean Version History**: Reset to 0.0.1-BETA with simplified changelog
 
 ### Preserved Core Functionality
 - **Complete Damage Calculator**: All calculation engines intact
