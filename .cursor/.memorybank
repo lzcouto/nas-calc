@@ -10,6 +10,20 @@
 - **Version**: 0.0.1-BETA (reset from previous versions)
 
 ## Recent Changes (Latest Update)
+- **Navbar UI Improvements & Translation Cleanup (v0.1.3-BETA)**: Major navbar redesign and complete Thai text translation
+  - **Home Button Redesign**: Moved Calculator button to far left as home icon only (removed text label)
+  - **Green Border Removal**: Eliminated the green selection bar from navbar buttons by removing border styling
+  - **Improved Spacing**: Added proper spacing between search icon and "Items" text in navbar
+  - **Settings Button Enhancement**: Increased cogwheel size and improved padding to prevent crushed appearance
+  - **Footer Styling**: Made "NITROBLISSERINO ATTACK SQUAD @ ROLA" text bold and italic
+  - **Complete Thai Translation**: Translated all remaining Thai text in codebase to English
+    - Damage calculator penetration labels: 'เจาะเวท' → 'Magic Penetration', 'เจาะกาย' → 'Physical Penetration'
+    - Utility options: Updated penetration race/class labels to English
+    - StarEmperor skill: 'ตัวลอย' → 'Fusion Force'
+    - Reference links: Translated Thai titles to English equivalents
+    - Author names: Converted Thai names to English transliterations
+  - **Layout Restructure**: Home button now uses separate homeItems array for icon-only display
+  - **CSS Cleanup**: Removed problematic border styling that caused visual issues
 - **Topbar Right-Side Positioning Fix (v0.1.2-BETA)**: Resolved positioning issue by utilizing layout-topbar-menu container
   - **Issue**: Calculator, Items, and Settings buttons were appearing in center despite flexbox attempts
   - **Root Cause**: Custom flexbox container was conflicting with existing `layout-topbar-menu` CSS positioning

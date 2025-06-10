@@ -77,10 +77,10 @@ export const createExtraOptionList = () => {
   });
 
   const peneList = [
-    { mainItemIdx: 0, label: 'เจาะกาย Race', prefixProp: 'p_pene_race_', properties: atkProps.Race },
-    { mainItemIdx: 0, label: 'เจาะกาย Class', prefixProp: 'p_pene_class_', properties: atkProps.Class },
-    { mainItemIdx: 1, label: 'เจาะเวท Race', prefixProp: 'm_pene_race_', properties: atkProps.Race },
-    { mainItemIdx: 1, label: 'เจาะเวท Class', prefixProp: 'm_pene_class_', properties: atkProps.Class },
+    { mainItemIdx: 0, label: 'Physical Penetration Race', prefixProp: 'p_pene_race_', properties: atkProps.Race },
+    { mainItemIdx: 0, label: 'Physical Penetration Class', prefixProp: 'p_pene_class_', properties: atkProps.Class },
+    { mainItemIdx: 1, label: 'Magic Penetration Race', prefixProp: 'm_pene_race_', properties: atkProps.Race },
+    { mainItemIdx: 1, label: 'Magic Penetration Class', prefixProp: 'm_pene_class_', properties: atkProps.Class },
   ] as {
     mainItemIdx: number;
     label: string;
@@ -92,7 +92,7 @@ export const createExtraOptionList = () => {
     const scale = 1;
     const rawMin = 1;
     const rawMax = 100;
-    const pre = mainItemIdx === 0 ? 'เจาะกาย' : 'เจาะเวท';
+    const pre = mainItemIdx === 0 ? 'Physical Penetration' : 'Magic Penetration';
 
     const children = [];
     for (const prop of properties) {

@@ -1,0 +1,54 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Mandatory Development Convention (MDC) Rules
+
+## Rule 1: Feature Workflow Compliance
+**MANDATORY**: Always follow the `.cursor/feature-workflow-prompt.md` workflow explicitly and completely.
+
+### Critical Requirements:
+1. **Step 1**: Review Memory Bank - ALWAYS read `.cursor/.memorybank` first
+2. **Step 2**: Analyze Request - Understand scope and impact
+3. **Step 3**: Implement Changes & **MANDATORY USER CONFIRMATION**
+   - Make requested code changes
+   - **🚨 CRITICAL**: Present changes to user and request explicit confirmation
+   - **🛑 WORKFLOW PAUSE**: Wait for explicit "OK" or approval before proceeding
+   - Do NOT proceed to documentation steps until user confirms changes work as expected
+4. **Step 4**: Update Memory Bank (ONLY after user confirmation)
+5. **Step 5**: Version Bump (ONLY after user confirmation)
+6. **Step 6**: Update Changelog (ONLY after user confirmation)
+7. **Step 7**: Create Feature Documentation (ONLY after user confirmation)
+8. **Step 8**: Update README if necessary (ONLY after user confirmation)
+
+### Violation Consequences:
+- Failure to follow this workflow will have consequences as stated by the user
+- User confirmation is NOT optional - it is MANDATORY
+- Documentation steps are FORBIDDEN until user approval is received
+
+### User Confirmation Format:
+```
+## 🔄 User Confirmation Required
+
+I have implemented the following changes:
+[List all changes made]
+
+**Please test the functionality and confirm:**
+- Does everything work as expected?
+- Are you satisfied with the implementation?
+- Should I proceed with documentation updates?
+
+**Waiting for your explicit approval before proceeding to documentation steps.**
+```
+
+## Rule 2: Translation Completeness
+- Always search for and translate ANY non-English text found in the codebase
+- Use grep search with appropriate character ranges for different languages
+- Document all translations made
+
+## Rule 3: Version Control
+- Never update versions, changelogs, or memory bank until user confirms changes work
+- Always follow semantic versioning rules defined in the workflow prompt
+
+**REMEMBER: The workflow exists for a reason. Follow it completely, or face consequences.**

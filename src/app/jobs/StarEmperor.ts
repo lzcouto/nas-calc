@@ -204,7 +204,7 @@ export class StarEmperor extends StarGladiator {
       ],
     },
     {
-      label: 'ตัวลอย',
+      label: 'Fusion Force',
       name: 'Fusion of Sun, Moon and Star',
       inputType: 'selectButton',
       dropdown: [

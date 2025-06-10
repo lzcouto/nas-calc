@@ -2,8 +2,19 @@
 <p-confirmDialog [position]="'top'"></p-confirmDialog>
 
 <div class="layout-topbar" style="min-width: 1500px">
-  <!-- Left side: Version, Bell icon, References -->
+  <!-- Left side: Home (Calculator) button, Version, Bell icon, References -->
   <div class="flex align-items-center">
+    <!-- Home/Calculator button -->
+    <div class="router-link pr-3">
+      <p-tabMenu [model]="homeItems" [activeItem]="activeItem">
+        <ng-template pTemplate="item" let-item>
+          <a class="flex justify-content-center align-items-center" [routerLink]="item.routerLink" style="text-decoration: none;">
+            <span [class]="item.icon"></span>
+          </a>
+        </ng-template>
+      </p-tabMenu>
+    </div>
+    
     <span class="px-2">{{ lastestVersion }}</span>
     <button pButton class="p-button-text p-button-info" (click)="showUpdateDialog()">
       <i *ngIf="showUnreadVersion > 0" class="pi pi-bell text-xl" severity="danger" pBadge value="{{ showUnreadVersion }}"></i>
@@ -39,23 +50,8 @@
   > -->
 
   <div #topbarmenu class="layout-topbar-menu" [ngClass]="{ 'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible }">
-    <!-- Right side: Calculator navigation, Item Search, and Settings -->
+    <!-- Right side: Item Search and Settings -->
     <div class="flex align-items-center">
-      <!-- Calculator navigation -->
-      <div class="router-link px-3" style="position: relative; top: -5px">
-        <p-tabMenu [model]="items" [activeItem]="activeItem">
-          <ng-template pTemplate="item" let-item>
-            <a class="flex justify-content-between align-items-center" [routerLink]="item.routerLink">
-              <div>
-                <span [class]="item.icon"></span>
-                <span> {{ item.label }}</span>
-              </div>
-              <span *ngIf="item.isNew" class="p-tag p-tag-warning ml-2">NEW</span>
-            </a>
-          </ng-template>
-        </p-tabMenu>
-      </div>
-
       <!-- Item Search Button -->
       <button
         pButton
@@ -64,20 +60,21 @@
         pTooltip="Search Items"
         tooltipPosition="bottom"
       >
-        <i class="pi pi-search"></i>
-        <span class="ml-1">Items</span>
+        <i class="pi pi-search mr-2"></i>
+        <span>Items</span>
       </button>
       
-      <!-- Settings Cogwheel Button -->
+      <!-- Settings Cogwheel Button with better sizing -->
       <button 
         pButton
-        class="p-button-text" 
+        class="p-button-text p-2" 
         type="button" 
         (click)="showConfigSidebar()"
         pTooltip="Settings (Scale & Colors)"
         tooltipPosition="bottom"
+        style="padding: 0.75rem;"
       >
-        <i class="pi pi-cog"></i>
+        <i class="pi pi-cog text-lg"></i>
       </button>
     </div>
   </div>

@@ -25,6 +25,17 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     },
   ];
 
+  homeItems: MenuItem[] = [
+    {
+      label: '',
+      icon: 'pi pi-fw pi-home',
+      routerLink: ['/'],
+      routerLinkActiveOptions: {
+        exact: true,
+      },
+    },
+  ];
+
   @ViewChild('menubutton') menuButton!: ElementRef;
 
   @ViewChild('topbarmenubutton') topbarMenuButton!: ElementRef;
@@ -91,7 +102,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
       link: 'https://ro.gnjoy.in.th/geffen-magic-tournament-enchant-system-update',
     },
     {
-      label: 'Develop note ! Balance Skill ขยายขีดจำกัดเลเวลสูงสุดของ Extended Class',
+      label: 'Develop note ! Balance Skill - Extended Class Level Cap Expansion',
       writer: 'RO GGT',
       link: 'https://ro.gnjoy.in.th/develop-note-extended',
     },
@@ -146,7 +157,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
       link: 'https://www.divine-pride.net/forum/index.php?/topic/4319-kro-illusion-of-under-water',
     },
     {
-      label: 'RO Podcast EP 7 : ส่อง KRO patchnote Q4 + คุยเรื่อง debuff',
+      label: 'RO Podcast EP 7 : KRO Patchnote Q4 Review + Debuff Discussion',
       writer: 'Sigma the fallen',
       link: 'https://www.youtube.com/live/xUiYYi6o6gA?si=EdJvXnchwtionL_4&t=1515',
     },
@@ -156,7 +167,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
       link: 'https://sigmathefallen.blogspot.com/',
     },
     {
-      label: 'เจาะลึก Stat ต่างๆ ใน Renewal Part I : Matk & Mdef',
+      label: 'Deep Dive into Renewal Stats Part I : Matk & Mdef',
       writer: 'Sigma the fallen',
       link: 'https://web.facebook.com/notes/3202008843255644/',
     },
@@ -166,13 +177,13 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
       link: 'https://hazyforest.com/equipment:enchantment_system',
     },
     {
-      label: 'Enchant Deadly Poison หรือที่เรียกติดปากกันว่า EDP',
+      label: 'Enchant Deadly Poison (EDP) Guide',
       writer: 'Assing',
       link: 'https://www.pingbooster.com/th/blog/detail/ragnarok-online-edp-enchant-deadly-poison-assassin',
     },
     {
       label: 'Assassin Hidden Properties: How to Maximize Damage (Please enable subtitles for complete information)',
-      writer: '/\\ssing (แอสซิ่ง)',
+      writer: '/\\ssing (Assing)',
       link: 'https://youtu.be/WvSbULJ2CGU?si=Ae5vY9teaGZDXSRB',
     },
     {
@@ -193,6 +204,17 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
   ];
 
   updates: { v: string; date: string; logs: string[]; }[] = [
+    {
+      v: '0.1.3-BETA',
+      date: new Date().toLocaleDateString('en-US'),
+      logs: [
+        "Major navbar redesign: moved Calculator to far left as home icon only, removed green selection bar",
+        "Improved spacing between search icon and Items text, enhanced Settings cogwheel sizing",
+        "Made footer text 'NITROBLISSERINO ATTACK SQUAD @ ROLA' bold and italic",
+        "Complete Thai text translation: penetration labels, skill names, reference titles, and author names",
+        "CSS cleanup: removed problematic border styling causing visual issues",
+      ],
+    },
     {
       v: '0.1.2-BETA',
       date: new Date().toLocaleDateString('en-US'),
