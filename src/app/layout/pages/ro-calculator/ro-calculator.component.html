@@ -1601,12 +1601,12 @@
         </div>
       </p-accordionTab>
 
-      <p-accordionTab header="Skills ***กดอัพสกิลด้วยนะ เพราะไอเทมบางชิ้นต้องอัพสกิลถึงจะได้ bonus" class="select_skill">
+      <p-accordionTab header="Skills ***Please upgrade skills as some items require skill upgrades to get bonuses" class="select_skill">
         <div class="grid grid-nogutter">
           <!--  Buffs -->
           <div class="col-4">
             <p-tag severity="info" value="Buffs"></p-tag>
-            <span class="skill_debuff pl-2">สีแดง = Debuff monster</span>
+            <span class="skill_debuff pl-2">Red = Debuff monster</span>
             <div class="grid grid-nogutter">
               <div *ngFor="let bishopBuff of skillBuffs; let i = index" class="col-12">
                 <div [ngSwitch]="bishopBuff.inputType">

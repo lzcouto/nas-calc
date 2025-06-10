@@ -3,7 +3,7 @@ import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AuthService } from '../api-services';
+
 import { LayoutService } from './service/app.layout.service';
 
 @Component({
@@ -23,17 +23,6 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         exact: true,
       },
     },
-    {
-      label: 'Shared Presets',
-      icon: 'pi pi-fw pi-list',
-      routerLink: ['/shared-presets'],
-    },
-    {
-      label: 'Item Ranking',
-      icon: 'pi pi-fw pi-sort-amount-down',
-      routerLink: ['/preset-summary'],
-      isNew: true,
-    } as any,
   ];
 
   @ViewChild('menubutton') menuButton!: ElementRef;
@@ -48,17 +37,17 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
   env = environment;
 
   infos = [
-    'ข้อมูลไอเทม มอนสเตอร์ และสกิล ทั้งหมดมาจากเว็บ "divine-pride"',
-    'เปลี่ยน Theme ทึ่ปุ่ม Config ตรงขวากลาง',
-    'ข้อมูลที่บันทึกไว้จะถูกเก็บไว้ที่ browser, ถ้าล้างข้อมูล browser ก็จะถูกลบไปด้วย',
-    'เงื่อนไขที่เขียนไว้ว่า "ทุกๆการเรียนรู้สกิล" ต้องกดอัพในช่อง "Learn to get bonuses" ถึงจะได้ bonus, ถ้าไม่มีให้อัพจะให้เป็น bonus เป็น Lv MAX',
-    'options ในแถวอาวุธจะอยู่ตลอด สามารถใช้เป็น What if ได้',
-    'My Magical Element ใน options = เพิ่ม Damage ทางเวทมนตร์ธาตุ ...',
-    'การเปรียบเทียบอาวุธ 2 มือยังไม่รองรับการเปลี่ยนมือซ้าย',
-    'Job 61-64, 66-69 จะได้ Bonus ไม่ตรงเพราะไม่มีข้อมูล',
-    'Tab "Summary" คือ ใส่อะไรบ้าง/อัพสกิลอะไรบ้าง/การคำนวนทั้งหมด',
-    'Tab "Equipments Summary" คือ bonus ของไอเทมแบบภาพรวม',
-    'Tab "Item Descriptions" คือ bonus ของไอเทมแต่ละชิ้นและคำอธิบาย (เอาไว้ตรวจสอบว่าได้ bonus ถูกไหม)',
+    'Item, monster, and skill data comes from "divine-pride" website',
+    'Change theme using the Config button on the right-center',
+    'Saved data is stored in the browser; clearing browser data will delete it',
+    'Conditions marked as "every skill learning" require clicking upgrade in "Learn to get bonuses" to get bonus; if not available, bonus defaults to Lv MAX',
+    'Options in weapon row are always available and can be used for "What if" scenarios',
+    'My Magical Element in options = Increases magical elemental damage...',
+    'Two-handed weapon comparison does not yet support left-hand changes',
+    'Jobs 61-64, 66-69 may have incorrect bonuses due to missing data',
+    'Tab "Summary" shows what you equipped/which skills you upgraded/all calculations',
+    'Tab "Equipments Summary" shows item bonuses overview',
+    'Tab "Item Descriptions" shows individual item bonuses and descriptions (for verifying correct bonuses)',
   ];
 
   references: { label: string; link: string; writer: string; date?: string; }[] = [
@@ -163,7 +152,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
       link: 'https://www.youtube.com/live/xUiYYi6o6gA?si=EdJvXnchwtionL_4&t=1515',
     },
     {
-      label: 'สกิล Class 4 V2',
+      label: 'Class 4 Skills V2',
       writer: 'Sigma the fallen',
       link: 'https://sigmathefallen.blogspot.com/',
     },
@@ -183,7 +172,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
       link: 'https://www.pingbooster.com/th/blog/detail/ragnarok-online-edp-enchant-deadly-poison-assassin',
     },
     {
-      label: 'คุณสมบัติลับยาแอส ทำยังไงให้ตีแรงที่สุด (โปรดเปิดคำบรรยายเพื่อข้อมูลที่ครบถ้วน)',
+      label: 'Assassin Hidden Properties: How to Maximize Damage (Please enable subtitles for complete information)',
       writer: '/\\ssing (แอสซิ่ง)',
       link: 'https://youtu.be/WvSbULJ2CGU?si=Ae5vY9teaGZDXSRB',
     },
@@ -408,7 +397,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
       date: '23-09-2567',
       logs: [
         'Added Night Watch skills',
-        'Updated base HP/SP (ขอบคุณข้อมูลจากปู่Sigma)',
+        'Updated base HP/SP (thanks to data from Sigma)',
         'Added item series (OSAD, Dim Glacier, Vivatus)',
         'Added requested items',
         'Fixed reported bugs'
@@ -575,7 +564,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     {
       v: 'V2.0.2',
       date: '11-03-2567',
-      logs: ['Added "คลิปวิธีใช้งานเว็บ"', 'Enable Shadow equipment comparing', 'Added requested items & monsters'],
+              logs: ['Added "How to use website video"', 'Enable Shadow equipment comparing', 'Added requested items & monsters'],
     },
     {
       v: 'V2.0.1',
@@ -656,7 +645,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
       logs: [
         'Fixed reported bugs',
         'Supported Super Novice class',
-        'Added SC, Git-Cross learnable skill (Hiding ***กดอัพสกิลใหม่นะครับ ลำดับสกิลมันเปลี่ยน)',
+        'Added SC, Git-Cross learnable skill (Hiding ***Please re-upgrade skills, skill order has changed)',
         'Added Penetration summary table (next to "Skill bonus / Multiplier Summary")',
         'Added requested items',
       ],
@@ -976,13 +965,10 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
   visibleUpdate = this.lastestVersion !== this.localVersion;
 
-  username: string;
-
   obs = [] as Subscription[];
 
   constructor(
     public layoutService: LayoutService,
-    private readonly authService: AuthService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
   ) { }
@@ -994,22 +980,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const o = this.authService.profileEventObs$.subscribe((profile) => {
-      this.username = profile?.name;
-    });
-    this.obs.push(o);
-  }
-
-  logout() {
-    this.waitConfirm('Logout ?').then((isConfirm) => {
-      if (!isConfirm) return;
-
-      this.authService.logout();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Logout',
-      });
-    });
+    // Removed authentication functionality
   }
 
   showDialog() {
@@ -1039,9 +1010,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     this.visibleInfo = true;
   }
 
-  showMyProfile() {
-    this.layoutService.showMyProfileSidebar();
-  }
+
 
   private waitConfirm(message: string, icon?: string) {
     return new Promise((res) => {
