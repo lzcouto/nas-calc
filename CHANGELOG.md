@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.0-BETA
+
+- **Divine Pride API Service**: Added external API integration for Ragnarok Online game data
+- New service endpoints: getSkill(), getMonster(), getItem() with real-time data from Divine Pride API
+- Complete TypeScript models for API responses: skills, monsters, and items
+- Environment-based API key configuration with support for multiple servers (defaults to latamRO)
+- Comprehensive integration tests with real API calls (no mocking) using actual game data
+- Custom test script: 'npm run test:divine-pride' for isolated API testing
+
 ## 0.1.5-BETA
 
 - Complete Thai text elimination: comprehensive cleanup removing all remaining Thai text from calculator interface

@@ -218,9 +218,13 @@ The project includes extensive game data:
 
 The project uses Jasmine/Karma for testing:
 ```bash
-npm test        # Run tests
-npm run e2e     # End-to-end tests
+npm test                    # Run all tests
+npm run test:divine-pride   # Run Divine Pride API integration tests only
+npm run e2e                 # End-to-end tests
 ```
+
+#### Divine Pride API Testing
+The project includes comprehensive integration tests for the Divine Pride API service that make real API calls (no mocking) to verify functionality with actual game data.
 
 ## 🌐 Deployment
 

@@ -7,9 +7,28 @@
 - **Scale**: 65+ job classes, 1,500+ line calculation engines, 20MB+ of game data
 - **Language**: English (previously had Thai text, now fully translated)
 - **Focus**: Streamlined, lean calculator focused on core damage calculation functionality
-- **Version**: 0.1.4-BETA (latest version with navbar reorganization and icon consistency)
+- **Version**: 0.2.0-BETA (latest version with Divine Pride API service integration)
 
 ## Recent Changes (Latest Update)
+- **Divine Pride API Service Implementation (v0.2.0-BETA)**: Added external API integration for game data
+  - **New API Service**: Implemented `DivinePrideService` with three main endpoints
+    - `getSkill(skillId)` - Retrieve skill data from Divine Pride API
+    - `getMonster(monsterId)` - Retrieve monster data from Divine Pride API  
+    - `getItem(itemId)` - Retrieve item data from Divine Pride API
+  - **Configuration**: Uses environment configuration with API key and host settings
+    - Defaults to `latamRO` server for Latin America Ragnarok Online
+    - Uses `en-US` Accept-Language header for English responses
+    - Environment-based API key management (`environment.local.ts`)
+  - **TypeScript Models**: Complete type safety with Divine Pride API response models
+    - `DivinePrideSkillModel` - Skill data with globalization support
+    - `DivinePrideMonsterModel` - Monster stats, spawn locations, and skills
+    - `DivinePrideItemModel` - Item properties, descriptions, and requirements
+  - **Integration Tests**: Comprehensive test suite with real API calls (no mocking)
+    - Tests all three endpoints with actual Ragnarok Online data
+    - Error handling tests for invalid IDs and authentication
+    - Custom test script: `npm run test:divine-pride`
+    - Uses real game data: Fire Ball skill (ID: 17), Poring monster (ID: 1002), Bone Helm (ID: 5017)
+  - **Service Architecture**: Follows existing project patterns and integrates with API service module
 - **Navbar Clean-up & Footer References Migration (v0.1.4-BETA)**: Major UI reorganization for cleaner navbar
   - **References Migration**: Moved references button from navbar to footer right side to reduce navbar pollution
   - **Version Repositioning**: Moved version display from left side to right side of navbar for better balance
@@ -132,6 +151,16 @@
 - **Equipment Models**: EquipmentSummaryModel, ItemModel
 - **Damage Models**: DamageSummaryModel, BasicDamageSummaryModel
 - **Monster Models**: MonsterModel
+
+#### API Services (`src/app/api-services/`)
+- **`divine-pride.service.ts`** - External API integration for game data
+  - Skill data retrieval from Divine Pride database
+  - Monster information and spawn locations
+  - Item properties and requirements
+  - Server-specific data (defaults to latamRO)
+  - Environment-based authentication
+- **API Models**: DivinePrideSkillModel, DivinePrideMonsterModel, DivinePrideItemModel
+- **Integration**: HttpClient-based service with proper error handling
 
 ### Data Processing
 

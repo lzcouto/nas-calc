@@ -1,12 +1,13 @@
 {
     "name": "ro-calculator",
-    "version": "0.0.1-BETA",
+    "version": "0.2.0-BETA",
     "scripts": {
         "ng": "ng",
         "start": "ng serve --host 0.0.0.0 --hmr --port 4200",
         "start-local": "ng serve --configuration=local --host 0.0.0.0 --hmr --port 4200",
         "build": "ng build",
         "test": "ng test",
+        "test:divine-pride": "ng test --include='src/app/api-services/divine-pride.service.spec.ts' --single-run --browsers=ChromeHeadless",
         "lint": "ng lint --fix",
         "e2e": "ng e2e",
         "predeploy": "ng build --output-hashing all --output-path ..\\nas-calc-host\\docs --base-href /nas-calc-host/",
