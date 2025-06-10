@@ -13,28 +13,6 @@ import { LayoutService } from './service/app.layout.service';
   providers: [ConfirmationService, MessageService, DialogService],
 })
 export class AppTopBarComponent implements OnInit, OnDestroy {
-  activeItem: MenuItem | undefined;
-  items: MenuItem[] = [
-    {
-      label: 'Calculator',
-      icon: 'pi pi-fw pi-home',
-      routerLink: ['/'],
-      routerLinkActiveOptions: {
-        exact: true,
-      },
-    },
-  ];
-
-  homeItems: MenuItem[] = [
-    {
-      label: '',
-      icon: 'pi pi-fw pi-home',
-      routerLink: ['/'],
-      routerLinkActiveOptions: {
-        exact: true,
-      },
-    },
-  ];
 
   @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -204,6 +182,18 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
   ];
 
   updates: { v: string; date: string; logs: string[]; }[] = [
+    {
+      v: '0.1.4-BETA',
+      date: new Date().toLocaleDateString('en-US'),
+      logs: [
+        "Navbar clean-up: moved References button to footer, repositioned version to right side",
+        "Updated website title to 'Ragnarok Online LATAM Calculator'",
+        "Icon consistency fix: standardized all topbar icons to 1.25rem size with CSS rules",
+        "Converted home button from tab menu to regular button for consistency",
+        "Enhanced footer: added References functionality while preserving attribution layout",
+        "Code optimization: removed unused tab properties, reduced bundle size by 11.73 kB",
+      ],
+    },
     {
       v: '0.1.3-BETA',
       date: new Date().toLocaleDateString('en-US'),

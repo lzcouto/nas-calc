@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.1.4-BETA
+
+- Navbar clean-up: moved References button to footer, repositioned version to right side
+- Updated website title to 'Ragnarok Online LATAM Calculator'
+- Icon consistency fix: standardized all topbar icons to 1.25rem size with CSS rules
+- Converted home button from tab menu to regular button for consistency
+- Enhanced footer: added References functionality while preserving attribution layout
+- Code optimization: removed unused tab properties, reduced bundle size by 11.73 kB
+
+## 0.1.3-BETA
+
+- Major navbar redesign: moved Calculator to far left as home icon only, removed green selection bar
+- Improved spacing between search icon and Items text, enhanced Settings cogwheel sizing
+- Made footer text 'NITROBLISSERINO ATTACK SQUAD @ ROLA' bold and italic
+- Complete Thai text translation: penetration labels, skill names, reference titles, and author names
+- CSS cleanup: removed problematic border styling causing visual issues
+
 ## 0.1.2-BETA
 
 - Fixed topbar right-side positioning by moving Calculator, Items, and Settings buttons to layout-topbar-menu container

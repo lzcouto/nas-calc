@@ -2,25 +2,23 @@
 <p-confirmDialog [position]="'top'"></p-confirmDialog>
 
 <div class="layout-topbar" style="min-width: 1500px">
-  <!-- Left side: Home (Calculator) button, Version, Bell icon, References -->
+  <!-- Left side: Home (Calculator) button and Bell icon -->
   <div class="flex align-items-center">
     <!-- Home/Calculator button -->
-    <div class="router-link pr-3">
-      <p-tabMenu [model]="homeItems" [activeItem]="activeItem">
-        <ng-template pTemplate="item" let-item>
-          <a class="flex justify-content-center align-items-center" [routerLink]="item.routerLink" style="text-decoration: none;">
-            <span [class]="item.icon"></span>
-          </a>
-        </ng-template>
-      </p-tabMenu>
-    </div>
-    
-    <span class="px-2">{{ lastestVersion }}</span>
-    <button pButton class="p-button-text p-button-info" (click)="showUpdateDialog()">
-      <i *ngIf="showUnreadVersion > 0" class="pi pi-bell text-xl" severity="danger" pBadge value="{{ showUnreadVersion }}"></i>
-      <i *ngIf="showUnreadVersion === 0" class="pi pi-bell text-xl" severity="danger"></i>
+    <button 
+      pButton 
+      class="p-button-text p-button-info mr-3" 
+      routerLink="/"
+      pTooltip="Home"
+      tooltipPosition="bottom"
+    >
+      <i class="pi pi-home"></i>
     </button>
-    <button pButton class="pl-2 p-button-text p-button-info p-button-raised" (click)="showReferenceDialog()">References</button>
+    
+    <button pButton class="p-button-text p-button-info" (click)="showUpdateDialog()">
+      <i *ngIf="showUnreadVersion > 0" class="pi pi-bell" severity="danger" pBadge value="{{ showUnreadVersion }}"></i>
+      <i *ngIf="showUnreadVersion === 0" class="pi pi-bell" severity="danger"></i>
+    </button>
   </div>
 
 
@@ -50,8 +48,11 @@
   > -->
 
   <div #topbarmenu class="layout-topbar-menu" [ngClass]="{ 'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible }">
-    <!-- Right side: Item Search and Settings -->
+    <!-- Right side: Version, Item Search and Settings -->
     <div class="flex align-items-center">
+      <!-- Version -->
+      <span class="px-2">{{ lastestVersion }}</span>
+      
       <!-- Item Search Button -->
       <button
         pButton
@@ -74,7 +75,7 @@
         tooltipPosition="bottom"
         style="padding: 0.75rem;"
       >
-        <i class="pi pi-cog text-lg"></i>
+        <i class="pi pi-cog"></i>
       </button>
     </div>
   </div>

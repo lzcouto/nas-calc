@@ -18,3 +18,13 @@
 .youtube-link {
   background-color: black;
 }
+
+/* Standardize all topbar icon sizes for consistency */
+.layout-topbar i[class*="pi pi-"] {
+  font-size: 1.25rem !important; /* Equivalent to text-xl */
+}
+
+/* Ensure consistent sizing for button icons in topbar */
+.layout-topbar button i[class*="pi pi-"] {
+  font-size: 1.25rem !important; /* Equivalent to text-xl */
+}

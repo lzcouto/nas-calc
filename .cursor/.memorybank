@@ -7,9 +7,21 @@
 - **Scale**: 65+ job classes, 1,500+ line calculation engines, 20MB+ of game data
 - **Language**: English (previously had Thai text, now fully translated)
 - **Focus**: Streamlined, lean calculator focused on core damage calculation functionality
-- **Version**: 0.0.1-BETA (reset from previous versions)
+- **Version**: 0.1.4-BETA (latest version with navbar reorganization and icon consistency)
 
 ## Recent Changes (Latest Update)
+- **Navbar Clean-up & Footer References Migration (v0.1.4-BETA)**: Major UI reorganization for cleaner navbar
+  - **References Migration**: Moved references button from navbar to footer right side to reduce navbar pollution
+  - **Version Repositioning**: Moved version display from left side to right side of navbar for better balance
+  - **Website Title Update**: Changed browser tab title to "Ragnarok Online LATAM Calculator"
+  - **Footer Enhancement**: Added references functionality to footer while preserving existing attribution layout
+  - **Icon Consistency Fix**: Implemented comprehensive CSS standardization for all topbar icons
+    - All icons now use consistent 1.25rem (text-xl equivalent) sizing
+    - Converted home button from p-tabMenu to regular pButton for consistency
+    - Removed inconsistent size classes (text-xl, text-lg) from HTML
+    - Created future-proof CSS rules to prevent icon size inconsistencies
+  - **Code Cleanup**: Removed unused MenuItem arrays and tab-related properties from TypeScript
+  - **Bundle Optimization**: Reduced main bundle size from 127.53 kB to 115.80 kB through code cleanup
 - **Navbar UI Improvements & Translation Cleanup (v0.1.3-BETA)**: Major navbar redesign and complete Thai text translation
   - **Home Button Redesign**: Moved Calculator button to far left as home icon only (removed text label)
   - **Green Border Removal**: Eliminated the green selection bar from navbar buttons by removing border styling
@@ -45,7 +57,7 @@
   - **CHANGELOG.md**: Synchronized entries to match bell dialog notifications
   - Both changelog sources now contain identical information for consistency
 - **Versioning System**: Implemented semantic versioning for website development
-  - **Current Version**: 0.1.2-BETA (PATCH fix for right-side element positioning using layout-topbar-menu)
+  - **Current Version**: 0.1.4-BETA (MINOR update for navbar reorganization and UI improvements)
   - **Website-Adapted Rules**: MAJOR for UI redesigns/breaking changes, MINOR for new features/significant improvements, PATCH for fixes/cosmetic changes
   - **Automated Workflow**: Version bumping integrated into feature development process
 - **Previous UI Reorganization**: Moved item search functionality and settings cogwheel to the topbar
@@ -169,13 +181,18 @@ interface AtkSkillModel {
 - **Monster Selection**: Target monster database integration
 
 #### Header/Navigation (Enhanced)
-- **`app.topbar.component.ts`** - Enhanced topbar with item search and settings access
-  - Calculator navigation (main focus)
-  - Version notifications and changelog
-  - References dialog for technical documentation
-  - **NEW**: Item search button - triggers item search dialog in calculator
-  - **NEW**: Settings cogwheel button - opens configuration sidebar for scale/colors
+- **`app.topbar.component.ts`** - Clean topbar with consistent button styling
+  - **Left Side**: Home button (regular pButton) + Bell icon (changelog notifications)
+  - **Right Side**: Version display + Items search button + Settings cogwheel
+  - **Icon Consistency**: All icons standardized to 1.25rem size via CSS rules
+  - **Removed Tab Functionality**: Converted from p-tabMenu to regular buttons for consistency
   - Communication via LayoutService.itemSearchOpen$ and showConfigSidebar()
+
+#### Footer (Enhanced)
+- **`app.footer.component.ts`** - Enhanced footer with references integration
+  - **Left Side**: Attribution to "NITROBLISSERINO ATTACK SQUAD @ ROLA" + Tong Calc credit
+  - **Right Side**: References button with complete dialog functionality
+  - **Dual References System**: References accessible from footer instead of cluttering navbar
 
 #### Supporting Components
 - **Item Search**: Equipment database search and filtering
@@ -261,20 +278,22 @@ const hitsPerSecond = totalAspd / 50; // RO ASPD formula
 - **REMOVED**: Authentication system (login/logout, user profiles)
 - **REMOVED**: External links (YouTube tutorials, issue tracking, surveys)
 - **REMOVED**: Support functionality (green support button, donation dialog, QR code)
+- **REMOVED**: References from navbar (moved to footer for cleaner navigation)
 
 ### Code Cleanup Benefits
-- **Reduced Bundle Size**: ~10-15% smaller build
+- **Reduced Bundle Size**: ~10-15% smaller build + additional 11.73 kB reduction from tab removal
 - **Simplified Maintenance**: Fewer dependencies and external integrations
-- **Focused User Experience**: Single-purpose calculator interface
+- **Focused User Experience**: Single-purpose calculator interface with clean navigation
 - **Language Consistency**: All Thai text translated to English
 - **Clean Version History**: Reset to 0.0.1-BETA with simplified changelog
+- **Icon Consistency**: Standardized all topbar icons to prevent future inconsistencies
 
 ### Preserved Core Functionality
 - **Complete Damage Calculator**: All calculation engines intact
 - **Job System**: All 65+ job classes fully functional
 - **Equipment System**: Complete item database and processing
 - **Monster Database**: Full monster interaction system
-- **Technical References**: Documentation and formula sources maintained
+- **Technical References**: Documentation and formula sources maintained (now in footer)
 
 ## Future Development Notes
 
@@ -296,7 +315,7 @@ const hitsPerSecond = totalAspd / 50; // RO ASPD formula
 - Consider removing unused translation infrastructure
 - Evaluate removing unused PrimeNG components
 
-This memory bank serves as a comprehensive guide for understanding and working with this streamlined, lean Ragnarok Online damage calculator codebase focused purely on core calculation functionality. 
+This memory bank serves as a comprehensive guide for understanding and working with this streamlined, lean Ragnarok Online damage calculator codebase focused purely on core calculation functionality with a clean, consistent user interface.
 
 #### UI Components (`src/app/layout/`)
 
@@ -319,4 +338,14 @@ This memory bank serves as a comprehensive guide for understanding and working w
 - **`ro-calculator.component.ts`** - Enhanced with topbar communication
   - Added `@ViewChild('itemSearchComponent')` reference to item search component
   - Added subscription to `layoutService.itemSearchOpen$` in ngOnInit
-  - Triggers `itemSearchComponent.showDialog()` when topbar button is clicked 
+  - Triggers `itemSearchComponent.showDialog()` when topbar button is clicked
+
+#### Icon Consistency System
+- **CSS Standardization**: Implemented comprehensive icon sizing rules in `app.topbar.component.css`
+  - All topbar icons forced to 1.25rem (text-xl equivalent) size
+  - Future-proof rules prevent inconsistencies when adding new icons
+  - Removed individual size classes from HTML templates
+- **Button Consistency**: Converted all navigation elements to regular pButton components
+  - Home button changed from p-tabMenu to pButton with routerLink
+  - All buttons now follow identical structure and styling patterns
+  - Removed unused MenuItem arrays and tab-related properties 
