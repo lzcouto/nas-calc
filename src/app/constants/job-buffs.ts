@@ -53,7 +53,7 @@ export const JobBuffs: ActiveSkillModel[] = [
   },
   {
     name: 'Competentia',
-    label: '[บิC4] Competentia',
+    label: '[BiC4] Competentia',
     inputType: 'selectButton',
     dropdown: [
       { label: 'Yes', isUse: true, value: 5, bonus: { pAtk: 50, sMatk: 50 } },
@@ -62,7 +62,7 @@ export const JobBuffs: ActiveSkillModel[] = [
   },
   {
     name: '_Religio_Benedictum',
-    label: '[บิC4] All Trait +10',
+    label: '[BiC4] All Trait +10',
     inputType: 'selectButton',
     dropdown: [
       { label: 'Yes', isUse: true, value: 5, bonus: { spl: 10, wis: 10, sta: 10, pow: 10, crt: 10, con: 10 } },
@@ -71,7 +71,7 @@ export const JobBuffs: ActiveSkillModel[] = [
   },
   {
     name: '_Argutus Vita_Telum',
-    label: '[บิC4] เจาะ Res/MRes 25',
+    label: '[BiC4] Penetration Res/MRes 25',
     inputType: 'selectButton',
     dropdown: [
       { label: 'Yes', isUse: true, value: 5, bonus: { pene_res: 25, pene_mres: 25 } },

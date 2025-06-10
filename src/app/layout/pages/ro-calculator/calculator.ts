@@ -558,7 +558,7 @@ export class Calculator {
       return 0;
     }
 
-    // 50(90 วินาที)
+    // 50(90 seconds)
     const actualBonus = this.getActualBonus(bonus);
     if (isNumber(actualBonus)) return actualBonus;
 
@@ -805,7 +805,7 @@ export class Calculator {
       restCondition = restCondition.replace(toRemove2, '');
     }
 
-    // ACTIVE_SKILL[Platinum Altar]9===50(90 วินาที)
+    // ACTIVE_SKILL[Platinum Altar]9===50(90 seconds)
     const [unused2, actSkillName] = restCondition.match(/ACTIVE_SKILL\[(.+)]/) ?? [];
     if (actSkillName) {
       // console.log({ script, unused2, actSkillName });

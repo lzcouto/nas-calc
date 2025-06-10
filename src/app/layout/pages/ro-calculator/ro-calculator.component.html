@@ -434,7 +434,7 @@
                   <div class="col-12">
                     Dex2 Int1:
                     <span class="font-semibold px-1 summary_stat_yellow">{{ totalSummary?.calc?.dex2int1 || 0 }}</span>
-                    <span [hidden]="totalSummary?.calc?.to530 <= 0">{{ '( อีก ' + totalSummary?.calc?.to530 + ' )' }}</span>
+                    <span [hidden]="totalSummary?.calc?.to530 <= 0">{{ '( Need ' + totalSummary?.calc?.to530 + ' more )' }}</span>
                   </div>
                   <div class="col-12 px-1 border_default hp-sp-section" [hidden]="hideHpSp[selectedCharacter?.className]">
                     <div class="grid grid-nogutter">
@@ -470,7 +470,7 @@
                           (onClear)="onOptionChange()"
                         ></p-cascadeSelect> -->
                       </div>
-                      <!-- <div [hidden]="model?.level < 176" class="summary_monster_value px-1" style="color: var(--red-500)">*** Lv > 175 ไม่ตรง</div> -->
+                                              <!-- <div [hidden]="model?.level < 176" class="summary_monster_value px-1" style="color: var(--red-500)">*** Lv > 175 not matching</div> -->
                     </div>
                   </div>
                 </div>

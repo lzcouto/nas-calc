@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.5-BETA
+
+- Complete Thai text elimination: comprehensive cleanup removing all remaining Thai text from calculator interface
+- UI text translation: accuracy/penetration labels, monster location names, skill descriptions, and system messages
+- Enhanced English consistency: standardized terminology across all calculator components and battle summaries
+- Code comment translation: converted Thai developer comments to English for better maintainability
+
 ## 0.1.4-BETA
 
 - Navbar clean-up: moved References button to footer, repositioned version to right side

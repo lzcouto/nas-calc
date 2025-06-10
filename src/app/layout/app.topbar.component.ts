@@ -183,6 +183,16 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
   updates: { v: string; date: string; logs: string[]; }[] = [
     {
+      v: '0.1.5-BETA',
+      date: new Date().toLocaleDateString('en-US'),
+      logs: [
+        "Complete Thai text elimination: comprehensive cleanup removing all remaining Thai text from calculator interface",
+        "UI text translation: accuracy/penetration labels, monster location names, skill descriptions, and system messages",
+        "Enhanced English consistency: standardized terminology across all calculator components and battle summaries",
+        "Code comment translation: converted Thai developer comments to English for better maintainability",
+      ],
+    },
+    {
       v: '0.1.4-BETA',
       date: new Date().toLocaleDateString('en-US'),
       logs: [

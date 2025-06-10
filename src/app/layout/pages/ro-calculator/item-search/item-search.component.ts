@@ -86,7 +86,7 @@ export class ItemSearchComponent implements OnInit, OnDestroy {
         value: 'perfectDodge',
       },
       {
-        label: 'ลด Cooldown',
+        label: 'Reduce Cooldown',
         value: 'cd__',
       },
     );

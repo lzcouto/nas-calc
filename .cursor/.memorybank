@@ -34,6 +34,14 @@
     - StarEmperor skill: 'ตัวลอย' → 'Fusion Force'
     - Reference links: Translated Thai titles to English equivalents
     - Author names: Converted Thai names to English transliterations
+    - **Final Thai Text Cleanup (Latest)**: Comprehensive sweep to remove all remaining Thai text
+      - Calculator UI: 'อีก' → 'Need more', accuracy/penetration labels translated
+      - Battle summary: All Thai labels ('แม่น', 'เจาะ') → English equivalents
+      - Item search: 'ลด Cooldown' → 'Reduce Cooldown'
+      - Job buffs: '[บิC4]' → '[BiC4]', penetration labels translated
+      - Monster locations: All Thai location names translated to English
+      - Code comments: Thai time references ('วินาที') → 'seconds'
+      - Shared presets: All remaining Thai UI labels translated
   - **Layout Restructure**: Home button now uses separate homeItems array for icon-only display
   - **CSS Cleanup**: Removed problematic border styling that caused visual issues
 - **Topbar Right-Side Positioning Fix (v0.1.2-BETA)**: Resolved positioning issue by utilizing layout-topbar-menu container

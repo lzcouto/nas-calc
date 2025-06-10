@@ -12,6 +12,7 @@ This project is a comprehensive damage calculator for the MMORPG Ragnarok Online
 - **Monster Database** - Extensive monster data for damage testing
 - **Divine Pride API Integration** - Real-time game data from Divine Pride database
 - **Real-time Calculations** - Dynamic damage updates based on character changes
+- **Full English Interface** - Complete English localization for international accessibility
 
 ## 🚀 Quick Start
 
