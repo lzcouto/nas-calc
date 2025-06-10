@@ -254,7 +254,13 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     this.visibleInfo = true;
   }
 
+  showItemSearchDialog() {
+    this.layoutService.showItemSearchDialog();
+  }
 
+  showConfigSidebar() {
+    this.layoutService.showConfigSidebar();
+  }
 
   private waitConfirm(message: string, icon?: string) {
     return new Promise((res) => {

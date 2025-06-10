@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MenuItem, MessageService, PrimeIcons, SelectItemGroup } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Observable, Subject, Subscription, catchError, debounceTime, filter, finalize, forkJoin, mergeMap, of, switchMap, take, tap, throwError } from 'rxjs';
@@ -58,6 +58,7 @@ import { MonsterModel } from '../../../models/monster.model';
 import { LayoutService } from '../../service/app.layout.service';
 import { BaseStateCalculator } from './base-state-calculator';
 import { Calculator } from './calculator';
+import { ItemSearchComponent } from './item-search/item-search.component';
 import { MonsterDataViewComponent } from './monster-data-view/monster-data-view.component';
 import { PresetTableComponent } from './preset-table/preset-table.component';
 
@@ -128,6 +129,8 @@ const HideHpSp = {
   providers: [ConfirmationService, MessageService, DialogService],
 })
 export class RoCalculatorComponent implements OnInit, OnDestroy {
+  @ViewChild('itemSearchComponent') itemSearchComponent!: ItemSearchComponent;
+
   updateItemEvent = new Subject();
   updateMonsterListEvent = new Subject();
   updateCompareEvent = new Subject();
@@ -356,6 +359,14 @@ export class RoCalculatorComponent implements OnInit, OnDestroy {
       this.hideBasicAtk = c.hideBasicAtk;
     });
     this.allSubs.push(laySub);
+
+    // Subscribe to item search dialog trigger
+    const itemSearchSub = this.layoutService.itemSearchOpen$.subscribe(() => {
+      if (this.itemSearchComponent) {
+        this.itemSearchComponent.showDialog();
+      }
+    });
+    this.allSubs.push(itemSearchSub);
 
     const isCalcSubs = this.isCalculatingEvent.pipe(debounceTime(100)).subscribe(() => (this.isCalculating = false));
     this.allSubs.push(isCalcSubs);

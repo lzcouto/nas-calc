@@ -201,4 +201,8 @@ export class ItemSearchComponent implements OnInit, OnDestroy {
   showSearchDialog() {
     this.isShowSearchDialog = true;
   }
+
+  showDialog() {
+    this.showSearchDialog();
+  }
 }

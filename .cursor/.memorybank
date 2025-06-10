@@ -10,13 +10,18 @@
 - **Version**: 0.0.1-BETA (reset from previous versions)
 
 ## Recent Changes (Latest Update)
+- **UI Reorganization**: Moved item search functionality and settings cogwheel to the topbar
+  - Item search button now appears in the topbar with "Items" label and search icon
+  - Settings cogwheel now appears in the topbar (far right) for scale and color configuration
+  - Removed fixed-position buttons from their original locations
+  - Added communication via LayoutService between topbar and calculator components
 - **Version Reset**: Changed from V3.2.8 to 0.0.1-BETA
 - **Support Functionality Removed**: 
   - Removed green support button from header
   - Removed support dialog with QR code and donation information
   - Removed `showDialog()` method from topbar component
   - Cleaned up version history to only show current beta version
-- **Simplified Header**: Header now contains only core functionality (version notifications, references, calculator navigation)
+- **Simplified Header**: Header now contains core functionality plus new item search and settings access
 
 ## Core Architecture
 
@@ -126,13 +131,14 @@ interface AtkSkillModel {
 - **Damage Output**: Comprehensive damage breakdown
 - **Monster Selection**: Target monster database integration
 
-#### Header/Navigation (Streamlined)
-- **`app.topbar.component.ts`** - Simplified topbar with core functionality only
+#### Header/Navigation (Enhanced)
+- **`app.topbar.component.ts`** - Enhanced topbar with item search and settings access
   - Calculator navigation (main focus)
   - Version notifications and changelog
   - References dialog for technical documentation
-  - Support dialog for donations
-  - **REMOVED**: Item ranking, shared presets, authentication, external links
+  - **NEW**: Item search button - triggers item search dialog in calculator
+  - **NEW**: Settings cogwheel button - opens configuration sidebar for scale/colors
+  - Communication via LayoutService.itemSearchOpen$ and showConfigSidebar()
 
 #### Supporting Components
 - **Item Search**: Equipment database search and filtering
@@ -254,3 +260,26 @@ const hitsPerSecond = totalAspd / 50; // RO ASPD formula
 - Evaluate removing unused PrimeNG components
 
 This memory bank serves as a comprehensive guide for understanding and working with this streamlined, lean Ragnarok Online damage calculator codebase focused purely on core calculation functionality. 
+
+#### UI Components (`src/app/layout/`)
+
+##### Item Search Integration
+- **`item-search.component.ts`** - Modified to remove fixed-position button
+  - Removed fixed-position styling (was: `position: fixed; top: 42%; right: 0`)
+  - Added `showDialog()` public method for external triggering
+  - Integrated with LayoutService for topbar communication
+- **`app.layout.service.ts`** - Enhanced with item search communication
+  - Added `itemSearchOpen$` Subject for topbar-to-calculator communication
+  - Added `showItemSearchDialog()` method to trigger item search from topbar
+
+##### Settings Configuration
+- **`app.config.component.html`** - Removed fixed-position button
+  - Removed fixed-position cogwheel button (was: `layout-config-button` class)
+  - Sidebar functionality preserved and accessible via topbar
+  - Scale and color theme selection maintained
+
+#### Calculator Integration
+- **`ro-calculator.component.ts`** - Enhanced with topbar communication
+  - Added `@ViewChild('itemSearchComponent')` reference to item search component
+  - Added subscription to `layoutService.itemSearchOpen$` in ngOnInit
+  - Triggers `itemSearchComponent.showDialog()` when topbar button is clicked 

@@ -26,6 +26,34 @@
       </ng-template>
     </p-tabMenu>
   </div>
+
+  <!-- Item Search and Settings buttons -->
+  <div class="flex align-items-center ml-auto">
+    <!-- Item Search Button -->
+    <button
+      pButton
+      (click)="showItemSearchDialog()"
+      class="p-button-info p-button-text mr-2"
+      pTooltip="Search Items"
+      tooltipPosition="bottom"
+    >
+      <i class="pi pi-search"></i>
+      <span class="ml-1">Items</span>
+    </button>
+    
+    <!-- Settings Cogwheel Button -->
+    <button 
+      pButton
+      class="p-button-text" 
+      type="button" 
+      (click)="showConfigSidebar()"
+      pTooltip="Settings (Scale & Colors)"
+      tooltipPosition="bottom"
+    >
+      <i class="pi pi-cog"></i>
+    </button>
+  </div>
+
   <!-- <div class="grid router_link">
     <div class="col-fixed">
       <a routerLink="/" routerLinkActive="/">Calculator</a>

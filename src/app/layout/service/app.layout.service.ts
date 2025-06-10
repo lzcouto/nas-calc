@@ -49,9 +49,13 @@ export class LayoutService {
 
   private overlayOpen = new Subject<any>();
 
+  private itemSearchOpen = new Subject<any>();
+
   configUpdate$ = this.configUpdate.asObservable();
 
   overlayOpen$ = this.overlayOpen.asObservable();
+
+  itemSearchOpen$ = this.itemSearchOpen.asObservable();
 
   constructor() {
     this.onConfigUpdate();
@@ -89,6 +93,10 @@ export class LayoutService {
 
   showMyProfileSidebar() {
     this.state.myProfileVisible = true;
+  }
+
+  showItemSearchDialog() {
+    this.itemSearchOpen.next(null);
   }
 
   isOverlay() {

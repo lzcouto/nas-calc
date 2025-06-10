@@ -38,7 +38,18 @@ You are working on the Ragnarok Online Damage Calculator project. Before impleme
   - Impact assessment
   - Preserved functionality
   - Future considerations
+  - Technical learnings from implementation
 - **Format**: Follow existing feature documentation style
+
+### Step 6: Update README (If Necessary)
+- **Evaluate**: Does the change affect installation, usage, or project description?
+- **Update**: Modify `README.md` if the feature impacts:
+  - Installation instructions
+  - Usage guidelines
+  - Feature descriptions
+  - System requirements
+  - Configuration steps
+- **Skip**: If change is internal and doesn't affect user-facing documentation
 
 ## Documentation Template
 
@@ -85,6 +96,11 @@ When creating feature documentation, use this structure:
 - [Maintenance notes]
 - [Potential next steps]
 
+## Technical Learnings
+- [Key patterns or approaches discovered]
+- [Integration challenges and solutions]
+- [Best practices identified]
+
 ## Summary
 [Checklist of completed tasks with ✅ checkmarks]
 ```
@@ -103,6 +119,8 @@ Before completing any feature work, verify:
 - [ ] All files affected are documented
 - [ ] Impact assessment completed
 - [ ] Future considerations noted
+- [ ] Technical learnings documented
+- [ ] README.md updated if necessary
 
 ## Commands to Remember
 
@@ -125,30 +143,54 @@ npm run build
 - `src/app/layout/app.topbar.component.*` - Header functionality
 - `src/app/layout/pages/ro-calculator/` - Core calculator logic
 - `features/*.md` - Feature documentation history
+- `README.md` - User-facing documentation
 
 ### Common Change Patterns
 1. **UI Changes** - Update both `.html` template and `.ts` component
 2. **Feature Removal** - Check for orphaned assets, imports, routes
 3. **Version Updates** - Update both package.json and internal version tracking
 4. **Documentation** - Always update memory bank and create feature summary
+5. **Component Communication** - Use Angular services for cross-component interactions
+6. **Fixed-Position Elements** - Consider topbar integration for better UX
 
 ### Build and Verification
 - Always run `npm run build` to verify changes
 - Check for TypeScript compilation errors
 - Look for linter warnings that need addressing
 - Verify no broken references to removed functionality
+- **Avoid `npm start`** during implementation - user may be following changes in browser
+
+### Angular-Specific Patterns Learned
+- **Service Communication**: Use Subject/Observable pattern for component communication
+- **ViewChild Integration**: Proper parent-child component interaction patterns
+- **PrimeNG Integration**: Tooltip and styling best practices
+- **Layout Services**: Central communication hub for layout-related interactions
+- **Template References**: Use #templateVar for accessing child components
 
 ## Example Usage
 
-**User Request:** "Remove the green support button and reset version to 0.0.1-BETA"
+**User Request:** "Move the item search functionality to the top bar, and the settings cogwheel for scale and colors of the website to the top bar, all the way to the right."
 
 **Workflow Application:**
-1. ✅ Read `.cursor/.memorybank` for context
-2. ✅ Identify files: `app.topbar.component.*`, `package.json`
-3. ✅ Remove support button, dialog, and related methods
-4. ✅ Update version in package.json and component
-5. ✅ Verify build success
-6. ✅ Update memory bank with changes
-7. ✅ Create `features/version-reset-and-support-removal.md`
+1. ✅ Read `.cursor/.memorybank` for context on current UI structure
+2. ✅ Identify affected files: topbar, item-search, config components, layout service
+3. ✅ Implement UI reorganization with proper component communication
+4. ✅ Remove fixed-position elements and add topbar integration
+5. ✅ Verify build success with `npm run build`
+6. ✅ Update memory bank with architectural changes
+7. ✅ Create `features/topbar-ui-reorganization.md` with comprehensive documentation
+8. ✅ Evaluate README.md (no updates needed - internal UI change)
+
+## Key Learnings from Recent Iterations
+
+### UI/UX Improvements
+- **Fixed-Position Elements**: Generally better to integrate into topbar for consistency
+- **Component Communication**: Angular services with Subject/Observable work well for cross-component triggers
+- **User Experience**: Consolidating controls in predictable locations improves usability
+
+### Technical Patterns
+- **ViewChild Pattern**: Effective for parent component triggering child component methods
+- **Service Architecture**: Layout service as central hub scales well for multiple feature integrations
+- **PrimeNG Integration**: Tooltips and button styling integrate seamlessly with existing patterns
 
 This workflow ensures consistency, maintainability, and proper documentation for all feature changes in the Ragnarok Online Damage Calculator project. 
