@@ -1,5 +1,5 @@
 export interface DivinePrideSkillModel {
-  globalization: DivinePrideSkillGlobalization[];
+  globalization?: DivinePrideSkillGlobalization[];
   id: number;
 }
 

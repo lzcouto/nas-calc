@@ -46,3 +46,6 @@ backup-preset.json
 
 # Local environment file (contains API keys)
 src/environments/environment.local.ts
+
+# Local test files
+test-divine-pride-api.js
