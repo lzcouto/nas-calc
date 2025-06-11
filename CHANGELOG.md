@@ -5,7 +5,7 @@
 - **Divine Pride API Service**: Added external API integration for Ragnarok Online game data
 - New service endpoints: getSkill(), getMonster(), getItem() with real-time data from Divine Pride API
 - Complete TypeScript models for API responses: skills, monsters, and items
-- Environment-based API key configuration with support for multiple servers (defaults to latamRO)
+- Environment-based API key configuration with support for multiple servers (defaults to bRO)
 - Comprehensive integration tests with real API calls (no mocking) using actual game data
 - Custom test script: 'npm run test:divine-pride' for isolated API testing
 

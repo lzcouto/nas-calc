@@ -10,7 +10,7 @@ import { DivinePrideSkillModel, DivinePrideMonsterModel, DivinePrideItemModel } 
 export class DivinePrideService {
   private readonly baseUrl = environment.divinePrideAPIHost;
   private readonly apiKey = environment.divinePrideAPIKey;
-  private readonly defaultServer = 'latamRO';
+  private readonly defaultServer = 'bRO';
   private readonly defaultLanguage = 'en-US';
 
   constructor(private http: HttpClient) {}
@@ -18,7 +18,7 @@ export class DivinePrideService {
   /**
    * Get skill data by ID from Divine Pride API
    * @param skillId The skill ID to retrieve
-   * @param server Optional server override (defaults to latamRO)
+   * @param server Optional server override (defaults to bRO)
    * @returns Observable<DivinePrideSkillModel>
    */
   getSkill(skillId: number, server: string = this.defaultServer): Observable<DivinePrideSkillModel> {
@@ -38,7 +38,7 @@ export class DivinePrideService {
   /**
    * Get monster data by ID from Divine Pride API
    * @param monsterId The monster ID to retrieve
-   * @param server Optional server override (defaults to latamRO)
+   * @param server Optional server override (defaults to bRO)
    * @returns Observable<DivinePrideMonsterModel>
    */
   getMonster(monsterId: number, server: string = this.defaultServer): Observable<DivinePrideMonsterModel> {
@@ -58,7 +58,7 @@ export class DivinePrideService {
   /**
    * Get item data by ID from Divine Pride API
    * @param itemId The item ID to retrieve
-   * @param server Optional server override (defaults to latamRO)
+   * @param server Optional server override (defaults to bRO)
    * @returns Observable<DivinePrideItemModel>
    */
   getItem(itemId: number, server: string = this.defaultServer): Observable<DivinePrideItemModel> {

@@ -21,12 +21,12 @@ Implemented a comprehensive external API integration service to access real-time
 export class DivinePrideService {
   private readonly baseUrl = environment.divinePrideAPIHost;
   private readonly apiKey = environment.divinePrideAPIKey;
-  private readonly defaultServer = 'latamRO';
+  private readonly defaultServer = 'bRO';
   private readonly defaultLanguage = 'en-US';
 
   getSkill(skillId: number, server: string = this.defaultServer): Observable<DivinePrideSkillModel>
-  getMonster(monsterId: number, server: string = this.defaultServer): Observable<DivinePrideMonsterModel>
-  getItem(itemId: number, server: string = this.defaultServer): Observable<DivinePrideItemModel>
+getMonster(monsterId: number, server: string = this.defaultServer): Observable<DivinePrideMonsterModel>
+getItem(itemId: number, server: string = this.defaultServer): Observable<DivinePrideItemModel>
 }
 ```
 
@@ -94,7 +94,7 @@ export const environment: EnvironmentModel = {
 ### Positive Changes
 - **External Data Access**: Real-time access to Divine Pride database for accurate game information
 - **Type Safety**: Complete TypeScript integration with proper models and interfaces
-- **Server Flexibility**: Configurable server support (defaults to latamRO for Latin America)
+- **Server Flexibility**: Configurable server support (defaults to bRO for Brazil)
 - **Environment Management**: Secure API key handling through environment configuration
 - **Testing Coverage**: Comprehensive integration tests ensuring API reliability
 - **Future Extensibility**: Foundation for additional Divine Pride API endpoints

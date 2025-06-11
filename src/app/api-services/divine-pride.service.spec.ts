@@ -229,7 +229,7 @@ describe('DivinePrideService Integration Tests', () => {
   });
 
   describe('Server and Language Configuration', () => {
-    it('should use latamRO as default server', () => {
+    it('should use bRO as default server', () => {
       // This is tested implicitly in the above tests since no server parameter is passed
       expect(true).toBe(true); // Placeholder for server default test
     });

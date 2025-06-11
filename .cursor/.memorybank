@@ -16,7 +16,7 @@
     - `getMonster(monsterId)` - Retrieve monster data from Divine Pride API  
     - `getItem(itemId)` - Retrieve item data from Divine Pride API
   - **Configuration**: Uses environment configuration with API key and host settings
-    - Defaults to `latamRO` server for Latin America Ragnarok Online
+    - Defaults to `bRO` server for Brazil Ragnarok Online
     - Uses `en-US` Accept-Language header for English responses
     - Environment-based API key management (`environment.local.ts`)
   - **TypeScript Models**: Complete type safety with Divine Pride API response models
@@ -157,7 +157,7 @@
   - Skill data retrieval from Divine Pride database
   - Monster information and spawn locations
   - Item properties and requirements
-  - Server-specific data (defaults to latamRO)
+  - Server-specific data (defaults to bRO)
   - Environment-based authentication
 - **API Models**: DivinePrideSkillModel, DivinePrideMonsterModel, DivinePrideItemModel
 - **Integration**: HttpClient-based service with proper error handling
