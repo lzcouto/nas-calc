@@ -183,6 +183,19 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
   updates: { v: string; date: string; logs: string[]; }[] = [
     {
+      v: '0.2.1-BETA',
+      date: new Date().toLocaleDateString('en-US'),
+      logs: [
+        "Major Cleanup & Unused Feature Removal: Comprehensive cleanup focusing calculator on core functionality",
+        "Removed unused cloud-based features: authentication system, cloud presets, item ranking, user profiles",
+        "Deleted 18 files including entire modules (auth/, shared-preset/, preset-summary/, user-profile/)",
+        "Simplified codebase: removed JWT authentication, cloud API dependencies, and server-based preset management",
+        "Preserved local preset functionality: localStorage-based saves, preset management dialog, class filtering",
+        "Build optimization: eliminated thousands of lines of unused code while maintaining all core calculator features",
+        "Focus refinement: calculator now purely dedicated to damage calculation with simple local preset management",
+      ],
+    },
+    {
       v: '0.2.0-BETA',
       date: new Date().toLocaleDateString('en-US'),
       logs: [

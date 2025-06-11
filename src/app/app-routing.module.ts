@@ -18,10 +18,6 @@ import { AppLayoutComponent } from './layout/app.layout.component';
           ],
         },
         {
-          path: 'login',
-          loadChildren: () => import('./layout/pages/auth/auth.module').then((m) => m.AuthModule),
-        },
-        {
           path: '**',
           redirectTo: '',
         },

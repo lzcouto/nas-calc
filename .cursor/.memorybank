@@ -7,9 +7,33 @@
 - **Scale**: 65+ job classes, 1,500+ line calculation engines, 20MB+ of game data
 - **Language**: English (previously had Thai text, now fully translated)
 - **Focus**: Streamlined, lean calculator focused on core damage calculation functionality
-- **Version**: 0.2.0-BETA (latest version with Divine Pride API service integration)
+- **Version**: 0.2.1-BETA (latest version with comprehensive cleanup and Divine Pride API service integration)
 
 ## Recent Changes (Latest Update)
+- **Major Cleanup & Unused Feature Removal (v0.2.1-BETA)**: Comprehensive cleanup of unused functionality
+  - **Removed Features**: Eliminated all unused cloud-based features to focus on core calculator functionality
+    - **Authentication System**: Removed entire auth module (login, JWT, user profiles)
+    - **Cloud Presets**: Removed server-based preset sharing and management
+    - **Item Ranking**: Removed preset-summary feature for item ranking
+    - **User Profiles**: Removed user profile management system
+  - **Files Deleted (18 total)**:
+    - **Directories**: `auth/`, `shared-preset/`, `preset-summary/`, `user-profile/` modules
+    - **Services**: `auth.service.ts`, `preset.service.ts`
+    - **Models**: All authentication and cloud preset models (13 files)
+    - **Utilities**: `vefify-sync-presets.ts`, `unauthorized.ts`
+  - **Code Simplification**:
+    - **Main Calculator**: Removed all cloud preset methods while preserving local preset functionality
+    - **Preset Table**: Completely rewritten to handle only local browser-based presets
+    - **Configuration**: Removed JWT module, authentication routes, and cloud API dependencies
+    - **Templates**: Simplified UI to remove all cloud preset and authentication elements
+  - **Local Preset Functionality Preserved**:
+    - ✅ Local browser storage using localStorage
+    - ✅ Create, update, delete local presets
+    - ✅ Preset management dialog with equipment preview
+    - ✅ Class filtering for presets
+    - ✅ All existing calculator functionality intact
+  - **Results**: Build successful, ~15 files removed, thousands of lines of unused code eliminated
+  - **Focus**: Calculator now purely focused on damage calculation with simple local preset management
 - **Divine Pride API Service Implementation (v0.2.0-BETA)**: Added external API integration for game data
   - **New API Service**: Implemented `DivinePrideService` with three main endpoints
     - `getSkill(skillId)` - Retrieve skill data from Divine Pride API
@@ -159,8 +183,11 @@
   - Item properties and requirements
   - Server-specific data (defaults to bRO)
   - Environment-based authentication
-- **API Models**: DivinePrideSkillModel, DivinePrideMonsterModel, DivinePrideItemModel
-- **Integration**: HttpClient-based service with proper error handling
+- **`ro.service.ts`** - Core calculator service for damage calculations
+- **`summary.service.ts`** - Damage summary and report generation
+- **API Models**: Only Divine Pride models remain (DivinePrideSkillModel, DivinePrideMonsterModel, DivinePrideItemModel)
+- **Removed Services**: Authentication and cloud preset services eliminated in v0.2.1-BETA cleanup
+- **Integration**: Simplified HttpClient-based services focused on core functionality
 
 ### Data Processing
 
@@ -169,6 +196,10 @@
 - **Modifiers**: Refining levels (+0 to +20), Cards (4 slots), Enchants (3 levels)
 - **Shadow Equipment**: Complete shadow gear system with separate calculations
 - **Costume Equipment**: Costume pieces with enchantment support
+- **Preset System**: Simple local browser-based preset management
+  - Save/load equipment builds to localStorage
+  - Class filtering and equipment preview
+  - No cloud dependency (v0.2.1-BETA simplification)
 
 #### Skill System Architecture
 ```typescript

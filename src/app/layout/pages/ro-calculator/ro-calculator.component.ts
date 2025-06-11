@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MenuItem, MessageService, PrimeIcons, SelectItemGroup } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Observable, Subject, Subscription, catchError, debounceTime, filter, finalize, forkJoin, mergeMap, of, switchMap, take, tap, throwError } from 'rxjs';
-import { AuthService, PresetModel, PresetService } from 'src/app/api-services';
 import { RoService } from 'src/app/api-services/ro.service';
 import { AllowedCompareItemTypes } from 'src/app/app-config';
 import { ToErrorDetail } from 'src/app/app-errors';
@@ -43,7 +42,6 @@ import {
   toDropdownList,
   toRawOptionTxtList,
   toUpsertPresetModel,
-  verifySyncPreset,
   waitRxjs,
 } from 'src/app/utils';
 import { environment } from 'src/environments/environment';
@@ -99,6 +97,9 @@ interface SkillMultiplierModel {
   value: number;
   cd: string;
 }
+
+// Simple local PresetModel type for local presets
+type PresetModel = any;
 
 const elements = Object.values(ElementType).map((a) => [a, a.toLowerCase()]);
 const races = Object.values(RaceType).map((a) => [a, a.toLowerCase()]);
@@ -318,16 +319,12 @@ export class RoCalculatorComponent implements OnInit, OnDestroy {
   onClassChangedSubject = new Subject<boolean>();
   onClassChanged$ = this.onClassChangedSubject.asObservable();
 
-  isLoggedIn = false;
-
   constructor(
     private roService: RoService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private dialogService: DialogService,
     private readonly layoutService: LayoutService,
-    private readonly authService: AuthService,
-    private readonly presetService: PresetService,
   ) { }
 
   ngOnInit() {
@@ -337,18 +334,7 @@ export class RoCalculatorComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap(() => this.loadItemSet(localStorage.getItem('ro-set'))),
         tap(() => {
-          const ob = this.authService.loggedInEvent$.subscribe((isLoggedIn) => {
-            this.isLoggedIn = isLoggedIn;
-            console.log({ isLoggedIn });
-            if (isLoggedIn) {
-              this.confirmSync();
-              this.setPresetList();
-            } else {
-              this.setPresetList();
-              this.selectedPreset = undefined;
-            }
-          });
-          this.allSubs.push(ob);
+          this.setPresetList();
         }),
       )
       .subscribe(() => {
@@ -610,11 +596,7 @@ export class RoCalculatorComponent implements OnInit, OnDestroy {
         label: 'Update',
         icon: PrimeIcons.SYNC,
         command: () => {
-          if (this.isLoggedIn) {
-            this.updateCloudPreset();
-          } else {
-            this.updatePreset(this.selectedPreset);
-          }
+          this.updatePreset(this.selectedPreset);
         },
       },
       {
@@ -1063,30 +1045,12 @@ export class RoCalculatorComponent implements OnInit, OnDestroy {
   }
 
   private setPresetList() {
-    if (this.isLoggedIn) {
-      const ob = this.presetService.getMyPresets().pipe(
-        tap((presets) => {
-          if (presets) {
-            this.preSets = presets.map((p) => {
-              return {
-                label: p.label,
-                value: p.id,
-                icon: ClassIcon[p.classId],
-              };
-            });
-          }
-        }),
-      );
-
-      this.calAPIWithLoading(ob);
-    } else {
-      this.preSets = this.getPresetList().map((a) => {
-        return {
-          ...a,
-          icon: ClassIcon[(a as any)?.model?.class],
-        };
-      });
-    }
+    this.preSets = this.getPresetList().map((a) => {
+      return {
+        ...a,
+        icon: ClassIcon[(a as any)?.model?.class],
+      };
+    });
   }
 
   private waitConfirm(message: string, icon?: string) {
@@ -1144,86 +1108,9 @@ export class RoCalculatorComponent implements OnInit, OnDestroy {
       });
   }
 
-  createCloudPreset(label: string) {
-    const classId = this.model.class;
 
-    const obs = this.presetService
-      .createPreset({
-        label,
-        model: toUpsertPresetModel(this.model, this.selectedCharacter) as any,
-      })
-      .pipe(
-        switchMap((preset) => {
-          return this.loadItemSet(preset.model).pipe(switchMap(() => waitRxjs(0.1, preset)));
-        }),
-        // switchMap((preset) => {
-        //   return this.presetService.getMyPresets().pipe(
-        //     switchMap((presets) => {
-        //       this.preSets = presets.map((a) => {
-        //         return {
-        //           label: a.label,
-        //           value: a.id,
-        //           icon: ClassIcon[a.classId],
-        //         };
-        //       });
-        //       return of(preset);
-        //     }),
-        //   );
-        // }),
-        tap((preset) => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Created',
-            detail: `"${preset.label}" was created.`,
-          });
-          this.preSets = [{
-            label: preset.label,
-            value: preset.id,
-            icon: ClassIcon[classId],
-          }, ...this.preSets];
-          return waitRxjs();
-        }),
-        catchError((err) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Failed to create.',
-            detail: `${err}`,
-          });
 
-          return of(null);
-        }),
-      );
 
-    this.waitConfirm(`Create "${label}" ?`).then((isConfirm) => {
-      if (isConfirm) this.calAPIWithLoading(obs);
-    });
-  }
-
-  updateCloudPreset() {
-    const id = this.selectedPreset;
-    if (!id) return;
-
-    const label = this.preSets.find((a) => a.value === id)?.label;
-    const obs = this.presetService
-      .updatePreset(id, {
-        label,
-        model: toUpsertPresetModel(this.model, this.selectedCharacter) as any,
-      })
-      .pipe(
-        tap((preset) => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Updated',
-            detail: `"${preset.label}" was updated.`,
-          });
-          return waitRxjs();
-        }),
-      );
-
-    this.waitConfirm(`Update "${label}" ?`).then((isConfirm) => {
-      if (isConfirm) this.calAPIWithLoading(obs);
-    });
-  }
 
   /**
    * update or create (for local DB will update if preset name already exist or create new one)
@@ -1231,11 +1118,6 @@ export class RoCalculatorComponent implements OnInit, OnDestroy {
    * @returns
    */
   updatePreset(name: string) {
-    if (this.isLoggedIn) {
-      this.createCloudPreset(name);
-      return;
-    }
-
     const currentPresets = this.getPresetList();
     const currentPreset = currentPresets.find((a) => a.value === name);
     if (currentPreset) {
@@ -1275,77 +1157,10 @@ export class RoCalculatorComponent implements OnInit, OnDestroy {
   }
 
   deletePreset() {
-    if (!this.isLoggedIn) {
-      // this.deleteLocalPresets(name);
-      return;
-    }
-
-    const id = this.selectedPreset;
-    if (!id || typeof id !== 'string') return;
-
-    const label = this.preSets.find((a) => a.value === id)?.label;
-    if (!label) return;
-
-    const obs = this.presetService
-      .deletePreset(id)
-      .pipe(
-        tap(() => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Deleted',
-            detail: `"${label}" was deleted.`,
-          });
-          this.preSets = this.preSets.filter(a => a.value !== id);
-          this.selectedPreset = undefined;
-
-          return waitRxjs();
-        }),
-      );
-
-    this.waitConfirm(`Delete "${label}" ?`).then((isConfirm) => {
-      if (isConfirm) this.calAPIWithLoading(obs);
-    });
+    this.deleteLocalPresets();
   }
 
   loadPreset(presetName?: string) {
-    if (this.isLoggedIn) {
-      const presetId = presetName || this.selectedPreset;
-      const pName = this.preSets.find((a) => a.value === presetId)?.label;
-
-      const obs = this.presetService.getPreset(presetId).pipe(
-        switchMap((preset) => {
-          this.resetModel2();
-          return this.loadItemSet(preset.model).pipe(switchMap(() => waitRxjs(0.1, preset)));
-        }),
-        tap((preset) => {
-          this.updateCompareEvent.next(1);
-          if (presetName) this.selectedPreset = presetName;
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Loaded',
-            detail: `"${preset.label}" was loaded.`,
-          });
-
-          return waitRxjs(0.1);
-        }),
-        catchError((err) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Failed to create.',
-            detail: `${err}`,
-          });
-
-          return of(null);
-        }),
-      );
-
-      this.waitConfirm(`Load "${pName}" ?`).then((isConfirm) => {
-        if (isConfirm) this.calAPIWithLoading(obs);
-      });
-
-      return;
-    }
-
     const targePreset = presetName || this.selectedPreset;
     const selected = this.getPresetList().find((a) => a.value === targePreset);
     if (selected?.['model']) {
@@ -2571,108 +2386,8 @@ export class RoCalculatorComponent implements OnInit, OnDestroy {
   }
 
   private syncLocalPresetToCloud() {
-    if (!this.isLoggedIn) return;
-
-    const localPresets = this.getPresetList() as unknown as { value: string; model: any; }[];
-    if (localPresets.length === 0) return;
-
-    this.isInProcessingPreset = true;
-
-    const mapFix = new Map([
-      ['Fire-Charm', 10],
-      ['Earth-Charm', 20],
-      ['Ice-Charm', 30],
-      ['Wind-Charm', 40],
-      ['Trap Research==1', 1],
-      ['Trap Research==2', 2],
-      ['Trap Research==3', 3],
-      ['Trap Research==4', 4],
-      ['Trap Research==5', 5],
-      ['Trap Research==6', 6],
-      ['Trap Research==7', 7],
-      ['Trap Research==8', 8],
-      ['Trap Research==9', 9],
-      ['Trap Research==10', 10],
-      ['No Limits==1', 1],
-      ['No Limits==2', 2],
-      ['No Limits==3', 3],
-      ['No Limits==4', 4],
-      ['No Limits==5', 5],
-      ['Wind Walk==5', 5],
-      ['Improve Concentration==10', 10],
-      ['Falcon Eyes==10', 10],
-      ["Owl's Eye==10", 10],
-      ["Vulture's Eye==10", 10],
-    ]);
-    const mapClass = new Map(Characters.map((a) => [a.value as number, (a as any).instant as CharacterBase]));
-
-    const fixPresets = localPresets.map((a) => {
-      const activeSkills = a.model.activeSkills.map((val) => mapFix.get(val) ?? val);
-      const passiveSkills = a.model.passiveSkills.map((val) => mapFix.get(val) ?? val);
-      const c = mapClass.get(a.model.class);
-
-      const skillBuffMap = {};
-      const passiveSkillMap = {};
-      const activeSkillMap = {};
-
-      if (c) {
-        try {
-          for (let i = 0; i < this.skillBuffs.length; i++) {
-            skillBuffMap[this.skillBuffs[i].name] = a.model?.skillBuffs?.[i];
-          }
-          for (let i = 0; i < c.passiveSkills.length; i++) {
-            passiveSkillMap[c.passiveSkills[i].name] = passiveSkills[i];
-          }
-          for (let i = 0; i < c.activeSkills.length; i++) {
-            activeSkillMap[c.activeSkills[i].name] = activeSkills[i];
-          }
-        } catch (error) {
-          console.log({ error });
-        }
-      }
-
-      return {
-        ...a,
-        model: {
-          ...a.model,
-          activeSkills,
-          passiveSkills,
-          skillBuffMap,
-          activeSkillMap,
-          passiveSkillMap,
-        },
-      };
-    });
-
-    this.presetService
-      .bulkCreatePresets({ bulkData: fixPresets })
-      .pipe(
-        tap((c) => {
-          verifySyncPreset(localPresets, c);
-
-          this.deleteLocalPresets();
-          this.messageService.add({
-            severity: 'info',
-            summary: 'Confirmed',
-            detail: `Sync successed.`,
-          });
-
-          this.isInProcessingPreset = false;
-        }),
-        catchError((err) => {
-          return this.handleAPIError(err);
-        }),
-      )
-      .subscribe((createdPresets) => {
-        this.preSets = createdPresets.map((a) => {
-          return {
-            label: a.label,
-            value: a.id,
-            icon: ClassIcon[a.classId],
-          };
-        });
-        console.log('preset sycned');
-      });
+    // This method is no longer needed as cloud presets have been removed
+    return;
   }
 
   private handleAPIError(err: any) {

@@ -23,7 +23,6 @@ import { ChipModule } from 'primeng/chip';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
-import { UserProfileModule } from './pages/user-profile/user-profile.module';
 
 @NgModule({
   declarations: [
@@ -53,7 +52,6 @@ import { UserProfileModule } from './pages/user-profile/user-profile.module';
     TabMenuModule,
     ConfirmDialogModule,
     ToastModule,
-    UserProfileModule,
   ],
   exports: [AppLayoutComponent],
 })

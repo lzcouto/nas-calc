@@ -1,28 +1,6 @@
 <div class="grid grid-nogutter">
   <div class="col-3">
     <div class="grid grid-nogutter">
-      <div class="col-fixed mr-2" *ngIf="isLoggedIn">
-        <button
-          type="button"
-          class="p-button-help"
-          pButton
-          icon="pi pi-download"
-          label="Load"
-          [disabled]="!selectedCloudPreset"
-          (click)="onLoadPresetClick()"
-        ></button>
-      </div>
-      <div class="col-fixed mr-2" *ngIf="isLoggedIn">
-        <button
-          type="button"
-          class="p-button-danger"
-          pButton
-          icon="pi pi-trash"
-          label="Delete"
-          [disabled]="!selectedCloudPreset"
-          (click)="deletePreset()"
-        ></button>
-      </div>
       <div class="col-12">
         <div class="p-inputgroup dropdown-joblist">
           <span class="p-inputgroup-addon" style="width: 80px">Filter</span>
@@ -54,45 +32,7 @@
           </p-dropdown>
         </div>
       </div>
-      <div class="col-12" *ngIf="isLoggedIn">
-        <div class="p-inputgroup">
-          <input
-            #presetName
-            autocomplete="off"
-            type="text"
-            [value]="presetInfo?.label || ''"
-            pInputText
-            placeholder="preset name"
-          />
-          <button
-            type="button"
-            class="p-button-info"
-            pButton
-            icon="pi pi-file-edit"
-            label="Rename"
-            [disabled]="!selectedCloudPreset || !presetName.value"
-            (click)="onRenamePresetClick(presetName.value)"
-          ></button>
-        </div>
-      </div>
-      <div class="col-12" *ngIf="isLoggedIn">
-        <p-listbox
-          [options]="displayCloudPresets"
-          [(ngModel)]="selectedCloudPreset"
-          [metaKeySelection]="false"
-          [listStyle]="{ height: presets.length > 0 ? '350px' : '550px' }"
-          [disabled]="isProcessing"
-          (onChange)="onSelectPreset(false)"
-        >
-          <ng-template let-item pTemplate="item">
-            <div class="flex align-items-center gap-1">
-              <i *ngIf="item.isPublished" class="pi pi-send"></i>
-              <img src="assets/demo/images/jobs/icon_jobs_{{ item.icon }}.png" alt="" class="job_img" />
-              {{ item.label }}
-            </div>
-          </ng-template>
-        </p-listbox>
-      </div>
+
       <div class="col-fixed" *ngIf="presets.length > 0">
         <button
           type="button"
@@ -115,23 +55,13 @@
           (click)="deletePreset()"
         ></button>
       </div>
-      <div class="col-fixed" *ngIf="isLoggedIn && presets.length > 0">
-        <button
-          type="button"
-          class="p-button-success"
-          pButton
-          icon="pi pi-save"
-          label="Save To Cloud"
-          [disabled]="!selectedPreset || isProcessing"
-          (click)="saveToCloud()"
-        ></button>
-      </div>
+
       <div class="col-12" *ngIf="presets.length > 0">
         <p-listbox
           [options]="presets"
           [(ngModel)]="selectedPreset"
           [metaKeySelection]="false"
-          [listStyle]="{ 'max-height': isLoggedIn ? '200px' : '550px' }"
+          [listStyle]="{ 'max-height': '550px' }"
           (onChange)="onSelectPreset(true)"
         >
           <ng-template let-item pTemplate="item">
@@ -144,187 +74,87 @@
     </div>
   </div>
   <div class="col-9 pl-3">
-    <div class="grid grid-nogutter" *ngIf="isLoggedIn">
-      <div class="col-3 text-lg font-semibold">
-        Updated at: <span class="text-primary-300"> {{ presetInfo?.updatedAt | date : 'dd-MM-yyyy HH:mm' }} </span>
+    <div class="grid grid-nogutter">
+      <div class="col-6">
+        <span class="text-lg font-semibold">Class: </span>
+        <span class="text-primary-300">{{ classLabelMap[model.class] || 'None' }}</span>
       </div>
-      <div class="col-3 text-lg font-semibold" *ngIf="isSharedPreset">
-        Shared at: <span class="text-primary-300"> {{ presetInfo?.publishedAt | date : 'dd-MM-yyyy HH:mm' }} </span
-        ><br />
-      </div>
-      <div class="col-3 text-lg font-medium" *ngIf="isSharedPreset">
-        Like: <span class="text-primary-400"> {{ presetInfo?.tags[0]?.totalLike }} </span><br />
-      </div>
-      <div class="col-6" *ngIf="!isSharedPreset">
-        <div class="p-inputgroup">
-          <input
-            #sharedName
-            [autocomplete]="false"
-            autocomplete="off"
-            type="text"
-            pInputText
-            placeholder="Shared name"
-          />
-          <button
-            type="button"
-            class="p-button-info"
-            pButton
-            icon="pi pi-send"
-            label="Share"
-            [disabled]="!selectedCloudPreset || !sharedName.value || isSharedPreset"
-            (click)="sharePreset(sharedName.value); sharedName.value = ''"
-          ></button>
-        </div>
-      </div>
-      <div class="col-12 text-lg font-semibold" *ngIf="isSharedPreset">
-        Shared name: <span class="text-primary-300"> {{ presetInfo?.publishName }} </span>
-        <button type="button" class="p-button-warning" pButton label="Cancel" (click)="unsharePreset()"></button>
-      </div>
-      <!-- <div class="col-12">
-        <div class="grid p-fluid grid-nogutter" *ngIf="isSharedPreset">
-          <div class="col">
-            <p-multiSelect
-              [options]="availableTags"
-              [(ngModel)]="selectedTags"
-              [showClear]="true"
-              [showHeader]="false"
-              [showToggleAll]="false"
-              selectedItemsLabel="{0} tags selected"
-              placeholder="Available tags"
-              [maxSelectedLabels]="10"
-            >
-              <ng-template let-tags pTemplate="selectedItems">
-                <div *ngIf="!tags || tags.length === 0">Select Tags</div>
-                <div>
-                  <div class="inline-flex align-items-center gap-2 px-1" *ngFor="let tag of tags">
-                    <p-tag
-                      value="{{ tagSeverityMap[tag]?.label }}"
-                      severity="{{ tagSeverityMap[tag]?.severity }}"
-                      styleClass="text-base py-0"
-                    ></p-tag>
-                  </div>
-                </div>
-              </ng-template>
-            </p-multiSelect>
-          </div>
-          <div class="col-fixed">
-            <button
-              type="button"
-              class="p-button-warning"
-              pButton
-              icon="pi pi-tags"
-              label="Tag"
-              [disabled]="!selectedCloudPreset"
-              (click)="addTags()"
-            ></button>
-          </div>
-        </div>
-      </div> -->
-    </div>
-
-    <div class="grid my-2">
-      <div class="col-12 py-1 divider">
-        <p-divider></p-divider>
-      </div>
-    </div>
-
-    <div class="grid">
-      <div class="col-fixed flex gap-2" *ngIf="!!model?.class">
-        <img src="assets/demo/images/jobs/icon_jobs_{{ jobIconMap[model?.class] }}.png" alt="" class="job_img" />
-        <span class="summary_highlight text-xl"> {{ classLabelMap[model?.class] }} </span>
-      </div>
-      <div class="col-fixed">
-        Level: <span class="summary_highlight text-xl"> {{ model?.level }} </span>
-      </div>
-      <div class="col-fixed">
-        Job: <span class="summary_highlight text-xl"> {{ model?.jobLevel }} </span>
-      </div>
-      <div class="col-fixed">
-        Str: <span class="summary_stat_atk text-xl"> {{ model?.str }} </span>
-      </div>
-      <div class="col-fixed">
-        Int: <span class="summary_stat_matk text-xl"> {{ model?.int }} </span>
-      </div>
-      <div class="col-fixed">
-        Dex: <span class="summary_stat_atk text-xl" style="color: var(--green-300)"> {{ model?.dex }} </span>
-      </div>
-      <div class="col-fixed">
-        Agi: <span class="summary_stat_def text-xl"> {{ model?.agi }} </span>
-      </div>
-      <div class="col-fixed">
-        Vit: <span class="summary_stat_def text-xl"> {{ model?.vit }} </span>
-      </div>
-      <div class="col-fixed">
-        Luk: <span class="summary_stat_def text-xl"> {{ model?.luk }} </span>
-      </div>
-    </div>
-
-    <div
-      *ngFor="let item of displayMainItems"
-      class="grid grid-nogutter px-2 py-2 item_label_{{ item.itemType }}"
-      style="min-height: 2rem"
-    >
-      <div class="col-4">
-        <div *ngIf="!item.mainId">--- {{ item.itemType }} ---</div>
-        <div *ngIf="item.mainId" class="item_template flex gap-1">
-          <img src="assets/demo/images/items/{{ item.mainId }}.png" alt="" class="item_img" />
-          <div class="text_ellips pr-2" style="text-overflow: ellipsis">
-            {{ item.refineTxt }} {{ getItemLabel(item.mainId) }}
-          </div>
-        </div>
-      </div>
-      <div *ngFor="let cardId of item.cardIds" class="col-2">
-        <div class="item_template flex gap-1">
-          <img *ngIf="item.isHead" src="assets/demo/images/items/{{ cardId }}.png" alt="" class="item_img" />
-          <img *ngIf="!item.isHead" src="assets/demo/images/items/card.png" alt="" class="item_img" />
-          <div class="text_ellips pr-2" style="text-overflow: ellipsis">
-            {{ getItemLabel(cardId) }}
-          </div>
-        </div>
-      </div>
-      <div *ngFor="let enchantId of item.enchantIds" class="col-2">
-        <div class="item_template flex gap-1">
-          <img src="assets/demo/images/items/{{ enchantId }}.png" alt="" class="item_img" />
-          <div class="text_ellips pr-2" style="text-overflow: ellipsis">
-            {{ getItemLabel(enchantId) }}
-          </div>
-        </div>
+      <div class="col-6">
+        <span class="text-lg font-semibold">Level: </span>
+        <span class="text-primary-300">{{ model.baseLv || 'N/A' }}/{{ model.jobLv || 'N/A' }}</span>
       </div>
     </div>
 
     <div class="grid grid-nogutter">
-      <div class="col-12 py-1 divider">
-        <p-divider></p-divider>
-      </div>
-      <div class="col-4">
-        <div
-          *ngFor="let item of displayCostumeItems"
-          class="grid grid-nogutter px-2 py-2 item_label_{{ item.itemType }}"
-          style="min-height: 2rem"
-        >
-          <div class="col-12">
-            <div *ngIf="!item.mainId">--- {{ item.itemType }} ---</div>
-            <div *ngIf="item.mainId" class="item_template flex gap-1">
-              <img src="assets/demo/images/items/{{ item.mainId }}.png" alt="" class="item_img" />
-              <div class="text_ellips pr-2" style="text-overflow: ellipsis">{{ getItemLabel(item.mainId) }}</div>
-            </div>
+      <div class="col-12">
+        <div class="overflow-y-auto" style="max-height: 500px">
+          <table class="w-full">
+            <thead>
+              <tr>
+                <th class="text-left p-2">Equipment</th>
+                <th class="text-left p-2">Refine</th>
+                <th class="text-left p-2">Cards</th>
+                <th class="text-left p-2">Enchants</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of displayMainItems">
+                <td class="p-2">
+                  <div class="flex align-items-center gap-2">
+                    <span>{{ item.itemType | titlecase }}</span>
+                  </div>
+                </td>
+                <td class="p-2">{{ item.refineTxt }}</td>
+                <td class="p-2">
+                  <div *ngFor="let cardId of item.cardIds" class="text-sm">
+                    {{ getItemLabel(cardId) }}
+                  </div>
+                </td>
+                <td class="p-2">
+                  <div *ngFor="let enchantId of item.enchantIds" class="text-sm">
+                    {{ getItemLabel(enchantId) }}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div *ngIf="displayCostumeItems.length > 0" class="mt-4">
+            <h4>Costume Equipment</h4>
+            <table class="w-full">
+              <thead>
+                <tr>
+                  <th class="text-left p-2">Type</th>
+                  <th class="text-left p-2">Item</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of displayCostumeItems">
+                  <td class="p-2">{{ item.itemType | titlecase }}</td>
+                  <td class="p-2">{{ getItemLabel(item.mainId) }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-        </div>
-      </div>
-      <div class="col-4">
-        <div
-          *ngFor="let item of displayShadowItems"
-          class="grid grid-nogutter px-2 py-2 item_label_{{ item.itemType }}"
-          style="min-height: 2rem"
-        >
-          <div class="col-12">
-            <div *ngIf="!item.mainId">--- {{ item.itemType }} ---</div>
-            <div *ngIf="item.mainId" class="item_template flex gap-1">
-              <img src="assets/demo/images/items/{{ item.mainId }}.png" alt="" class="item_img" />
-              <div class="text_ellips pr-2" style="text-overflow: ellipsis">
-                {{ item.refineTxt }} {{ getItemLabel(item.mainId) }}
-              </div>
-            </div>
+
+          <div *ngIf="displayShadowItems.length > 0" class="mt-4">
+            <h4>Shadow Equipment</h4>
+            <table class="w-full">
+              <thead>
+                <tr>
+                  <th class="text-left p-2">Type</th>
+                  <th class="text-left p-2">Refine</th>
+                  <th class="text-left p-2">Item</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of displayShadowItems">
+                  <td class="p-2">{{ item.itemType | titlecase }}</td>
+                  <td class="p-2">{{ item.refineTxt }}</td>
+                  <td class="p-2">{{ getItemLabel(item.mainId) }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
