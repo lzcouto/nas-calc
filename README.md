@@ -172,7 +172,6 @@ The project includes extensive game data:
 - **`item.json`** (8.7MB) - Complete item database
 - **`monster.json`** (299KB) - Monster stats and information
 - **`hp_sp_table.json`** (286KB) - Character HP/SP tables
-- **`x.json`** (10MB) - Extended game data
 
 ### Hardcoded Data (`src/app/constants/`)
 - Skill formulas and effects

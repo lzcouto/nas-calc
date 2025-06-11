@@ -10,6 +10,23 @@
 - **Version**: 0.2.1-BETA (latest version with comprehensive cleanup and Divine Pride API service integration)
 
 ## Recent Changes (Latest Update)
+- **Unused Data Files & Service Cleanup (v0.2.1-BETA Update)**: Removed unused JSON data files and SummaryService
+  - **Unused JSON Files Removed**: Deleted 4 unused JSON files from `/data` folder (~10MB saved)
+    - `x.json` (10MB) - Complete unused data blob referenced only by unused SummaryService
+    - `x_presetSummaryMap.json` (9.7KB) - Preset summary mapping data never consumed
+    - `x_summaryClassSkillMap.json` (9.7KB) - Class skill summary mapping unused
+    - `x_totalSelectedJobMap.json` (569B) - Job selection totals never used
+  - **SummaryService Elimination**: Completely removed unused SummaryService and all references
+    - Deleted `summary.service.ts` - Service was registered but never injected/used by any components
+    - Removed imports from `app.module.ts` and `api-services/index.ts`
+    - Cleanup verified: Build successful, no functionality lost
+  - **Image Cleanup**: Removed `qr.jpg` QR code image from `/images/others/` (was from old donation system)
+  - **Analysis Results**: Only essential JSON files retained
+    - ✅ `item.json` (8.7MB) - Used by RoService.getItems() in ro-calculator
+    - ✅ `monster.json` (299KB) - Used by RoService.getMonsters() in ro-calculator  
+    - ✅ `hp_sp_table.json` (286KB) - Used by RoService.getHpSpTable() in ro-calculator
+  - **Benefits**: ~10MB file size reduction, cleaner codebase, removed dead service code
+  - **Verification**: Full build test passed, all core functionality preserved
 - **Major Cleanup & Unused Feature Removal (v0.2.1-BETA)**: Comprehensive cleanup of unused functionality
   - **Removed Features**: Eliminated all unused cloud-based features to focus on core calculator functionality
     - **Authentication System**: Removed entire auth module (login, JWT, user profiles)
@@ -183,11 +200,13 @@
   - Item properties and requirements
   - Server-specific data (defaults to bRO)
   - Environment-based authentication
-- **`ro.service.ts`** - Core calculator service for damage calculations
-- **`summary.service.ts`** - Damage summary and report generation
+- **`ro.service.ts`** - Core calculator service for damage calculations and data access
+  - Item database access via getItems()
+  - Monster database access via getMonsters()
+  - HP/SP table access via getHpSpTable()
 - **API Models**: Only Divine Pride models remain (DivinePrideSkillModel, DivinePrideMonsterModel, DivinePrideItemModel)
-- **Removed Services**: Authentication and cloud preset services eliminated in v0.2.1-BETA cleanup
-- **Integration**: Simplified HttpClient-based services focused on core functionality
+- **Removed Services**: Authentication, cloud preset services, and SummaryService eliminated in v0.2.1-BETA cleanup
+- **Integration**: Streamlined HttpClient-based services focused on core functionality
 
 ### Data Processing
 
@@ -271,7 +290,6 @@ interface AtkSkillModel {
 - **`item.json`** (8.7MB) - Complete item database with stats and bonuses
 - **`monster.json`** (299KB) - Monster database with stats and properties
 - **`hp_sp_table.json`** (286KB) - Character HP/SP progression tables
-- **`x.json`** (10MB) - Extended game data and calculations
 
 ### Development Patterns
 

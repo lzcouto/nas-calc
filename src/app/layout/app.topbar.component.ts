@@ -183,6 +183,18 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
   updates: { v: string; date: string; logs: string[]; }[] = [
     {
+      v: '0.2.2-BETA',
+      date: new Date().toLocaleDateString('en-US'),
+      logs: [
+        "Unused Data Files & Service Cleanup: Removed unused JSON data files and SummaryService (~10MB reduction)",
+        "Deleted unused JSON files: x.json (10MB), x_presetSummaryMap.json, x_summaryClassSkillMap.json, x_totalSelectedJobMap.json",
+        "Eliminated unused SummaryService: removed service registration, imports, and dead code",
+        "File cleanup: removed qr.jpg QR code image from old donation system",
+        "Retained only essential JSON files: item.json, monster.json, hp_sp_table.json (verified active usage)",
+        "Build verification: confirmed all core functionality preserved with successful compilation",
+      ],
+    },
+    {
       v: '0.2.1-BETA',
       date: new Date().toLocaleDateString('en-US'),
       logs: [
