@@ -10,7 +10,7 @@ import { DivinePrideSkillModel, DivinePrideMonsterModel, DivinePrideItemModel } 
 export class DivinePrideService {
   private readonly baseUrl = environment.divinePrideAPIHost;
   private readonly apiKey = environment.divinePrideAPIKey;
-  private readonly defaultServer = 'bRO';
+  private readonly defaultServer = 'LATAM';
   private readonly defaultLanguage = 'en-US';
 
   constructor(private http: HttpClient) {}

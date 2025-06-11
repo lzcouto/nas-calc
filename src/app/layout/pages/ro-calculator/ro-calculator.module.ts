@@ -28,6 +28,8 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { BlockUIModule } from 'primeng/blockui';
 import { DataViewModule } from 'primeng/dataview';
 import { TreeSelectModule } from 'primeng/treeselect';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { MessageModule } from 'primeng/message';
 
 import { RoCalculatorComponent } from './ro-calculator.component';
 import { PrettyJsonPipe } from '../../prettier-json.pipe';
@@ -47,6 +49,7 @@ import { BattleDmgSummaryComponent } from './battle-dmg-summary/battle-dmg-summa
 import { BattleMonsterSummaryComponent } from './battle-monster-summary/battle-monster-summary.component';
 import { EquipmentCosEnchantComponent } from './equipment-cos-enchant/equipment-cos-enchant.component';
 import { StatusInputComponent } from './status-input/status-input.component';
+import { DivinePrideSearchComponent } from './divine-pride-search/divine-pride-search.component';
 
 @NgModule({
   imports: [
@@ -81,6 +84,8 @@ import { StatusInputComponent } from './status-input/status-input.component';
     TreeSelectModule,
     FieldsetModule,
     DialogModule,
+    ProgressSpinnerModule,
+    MessageModule,
     RoCalculatorRoutingModule,
   ],
   declarations: [
@@ -99,6 +104,7 @@ import { StatusInputComponent } from './status-input/status-input.component';
     BattleMonsterSummaryComponent,
     EquipmentCosEnchantComponent,
     StatusInputComponent,
+    DivinePrideSearchComponent,
   ],
   exports: [CalcValueComponent],
 })

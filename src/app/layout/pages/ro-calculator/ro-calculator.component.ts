@@ -57,6 +57,7 @@ import { LayoutService } from '../../service/app.layout.service';
 import { BaseStateCalculator } from './base-state-calculator';
 import { Calculator } from './calculator';
 import { ItemSearchComponent } from './item-search/item-search.component';
+import { DivinePrideSearchComponent } from './divine-pride-search/divine-pride-search.component';
 import { MonsterDataViewComponent } from './monster-data-view/monster-data-view.component';
 import { PresetTableComponent } from './preset-table/preset-table.component';
 
@@ -131,6 +132,7 @@ const HideHpSp = {
 })
 export class RoCalculatorComponent implements OnInit, OnDestroy {
   @ViewChild('itemSearchComponent') itemSearchComponent!: ItemSearchComponent;
+  @ViewChild('divinePrideSearchComponent') divinePrideSearchComponent!: DivinePrideSearchComponent;
 
   updateItemEvent = new Subject();
   updateMonsterListEvent = new Subject();
@@ -353,6 +355,14 @@ export class RoCalculatorComponent implements OnInit, OnDestroy {
       }
     });
     this.allSubs.push(itemSearchSub);
+
+    // Subscribe to divine pride search dialog trigger
+    const divinePrideSearchSub = this.layoutService.divinePrideSearchOpen$.subscribe(() => {
+      if (this.divinePrideSearchComponent) {
+        this.divinePrideSearchComponent.showDialog();
+      }
+    });
+    this.allSubs.push(divinePrideSearchSub);
 
     const isCalcSubs = this.isCalculatingEvent.pipe(debounceTime(100)).subscribe(() => (this.isCalculating = false));
     this.allSubs.push(isCalcSubs);

@@ -51,11 +51,15 @@ export class LayoutService {
 
   private itemSearchOpen = new Subject<any>();
 
+  private divinePrideSearchOpen = new Subject<any>();
+
   configUpdate$ = this.configUpdate.asObservable();
 
   overlayOpen$ = this.overlayOpen.asObservable();
 
   itemSearchOpen$ = this.itemSearchOpen.asObservable();
+
+  divinePrideSearchOpen$ = this.divinePrideSearchOpen.asObservable();
 
   constructor() {
     this.onConfigUpdate();
@@ -97,6 +101,10 @@ export class LayoutService {
 
   showItemSearchDialog() {
     this.itemSearchOpen.next(null);
+  }
+
+  showDivinePrideSearchDialog() {
+    this.divinePrideSearchOpen.next(null);
   }
 
   isOverlay() {

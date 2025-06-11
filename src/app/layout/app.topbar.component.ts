@@ -183,6 +183,20 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
   updates: { v: string; date: string; logs: string[]; }[] = [
     {
+      v: '0.3.0-BETA',
+      date: new Date().toLocaleDateString('en-US'),
+      logs: [
+        "Divine Pride Search Feature: Added comprehensive item search functionality directly in topbar",
+        "Professional UI: Created Divine Pride-style modal with dual icon system (large collection + small title icons)",
+        "Smart Data Extraction: Automatically extracts and organizes stats (Type, ATK/DEF, Weight, Levels, Classes, Effects)",
+        "Advanced Text Processing: Supports Divine Pride color codes with proper blue/gray/white formatting",
+        "LATAM Server Integration: Configured for Latin America server with English language optimization",
+        "Proper Spacing: Automatic tab formatting after colons in descriptions (e.g., 'DEF:     15')",
+        "Error Handling: Graceful API error handling and missing image fallbacks",
+        "Raw JSON View: Expandable accordion showing complete API response for debugging",
+      ],
+    },
+    {
       v: '0.2.2-BETA',
       date: new Date().toLocaleDateString('en-US'),
       logs: [
@@ -330,6 +344,10 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
   showItemSearchDialog() {
     this.layoutService.showItemSearchDialog();
+  }
+
+  showDivinePrideSearchDialog() {
+    this.layoutService.showDivinePrideSearchDialog();
   }
 
   showConfigSidebar() {
